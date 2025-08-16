@@ -1,0 +1,187 @@
+/* === STYLES PAGE ACCUEIL === */
+.accueil {
+  /* Background avec votre couleur principale */
+  background-color: var(--app-background);
+  min-height: 100vh;
+  
+  /* Alignement à gauche avec marges */
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-3xl);
+}
+
+.accueil-container {
+  /* Conteneur aligné à gauche */
+  max-width: var(--max-width-2xl);
+  text-align: left;
+  width: 100%;
+}
+
+/* === TITRE PRINCIPAL === */
+.accueil-title {
+  /* Police titre Geist */
+  font-family: var(--font-title);
+  font-weight: var(--font-bold);
+  font-size: var(--text-6xl);
+  
+  /* Couleur texte haute contraste */
+  color: var(--text-high-contrast);
+  
+  /* Espacements */
+  margin: 0 0 var(--spacing-xl) 0;
+  
+  /* Animation d'apparition */
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* === TEXTE DESCRIPTION === */
+.accueil-description {
+  /* Police corps de texte Noto Serif */
+  font-family: var(--font-body);
+  font-weight: var(--font-normal);
+  font-size: var(--text-xl);
+  line-height: 1.6;
+  
+  /* Couleur texte faible contraste */
+  color: var(--text-low-contrast);
+  
+  /* Espacements */
+  margin: 0 0 var(--spacing-2xl) 0;
+  max-width: 700px;
+  
+  /* Animation d'apparition */
+  animation: fadeInUp 0.4s ease-out 0.1s both;
+}
+
+/* === CONTENEUR BOUTONS === */
+.accueil-buttons {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  
+  /* Animation d'apparition */
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+/* === STYLES DES BOUTONS === */
+.btn {
+  /* Styles de base */
+  font-family: var(--font-title);
+  font-weight: var(--font-medium);
+  font-size: var(--text-base);
+  
+  /* Taille et forme */
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  
+  /* Transitions */
+  transition: var(--transition-normal);
+  
+  /* Suppression des styles par défaut */
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  
+  /* Centrage du texte */
+  text-align: center;
+}
+
+
+
+/* === BOUTON PRIMAIRE === */
+.btn-primary {
+  background-color: var(--ui-background);
+  color: var(--text-high-contrast);
+  border: 2px solid var(--border-ui);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--ui-background-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* === BOUTON SECONDAIRE === */
+.btn-secondary {
+  background-color: var(--solid-background);
+  color: var(--color-1); /* Texte clair sur fond orange */
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+  background-color: var(--solid-background-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* === BOUTON OUTLINE === */
+.btn-outline {
+  background-color: transparent;
+  color: var(--solid-background);
+  border: 2px solid var(--solid-background);
+}
+
+.btn-outline:hover {
+  background-color: var(--solid-background);
+  color: var(--color-1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .accueil {
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+  
+  .accueil-title {
+    font-size: var(--text-4xl);
+  }
+  
+  .accueil-description {
+    font-size: var(--text-lg);
+  }
+  
+  .accueil-buttons {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .accueil {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .accueil-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .accueil-description {
+    font-size: var(--text-base);
+  }
+  
+  .accueil-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn {
+    width: 200px;
+  }
+}
