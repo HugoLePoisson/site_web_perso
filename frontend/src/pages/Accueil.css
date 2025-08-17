@@ -300,7 +300,7 @@
 }
 
 .projects-container {
-    max-width: var(--max-width-6xl);
+    max-width: var(--max-width-8xl);
     margin: 0 auto;
     padding: 0 var(--spacing-xl);
 }

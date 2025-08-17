@@ -173,7 +173,7 @@ function Accueil() {
                     </h1>
 
                     <p className="accueil-description animate-on-scroll">
-                        Développeur web en formation, passionné par la création d'expériences numériques modernes et intuitives.
+                        Ingénieur en formation, passionné par la création d'expériences numériques modernes et intuitives.
                     </p>
 
                     <div className="accueil-buttons animate-on-scroll">
