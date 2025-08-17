@@ -73,6 +73,10 @@
   --spacing-xl: 2rem;      /* 32px */
   --spacing-2xl: 3rem;     /* 48px */
   --spacing-3xl: 4rem;     /* 64px */
+  --spacing-4xl: 5rem;     
+  --spacing-5xl: 6rem;     
+  --spacing-6xl: 7rem;     
+  --spacing-7xl: 8rem;     
 
   /* === RAYONS DE BORDURE === */
   --radius-xs: 0.125rem;   /* 2px */
@@ -147,7 +151,7 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* === DÉTECTION AUTOMATIQUE DU THÈME SOMBRE === */
+/* === DÉTECTION AUTOMATIQUE DU THÈME SOMBRE === 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-1: #17120E;
@@ -182,7 +186,7 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
-}
+}*/
 
 /* === CLASSES UTILITAIRES === */
 .title { font-family: var(--font-title); }

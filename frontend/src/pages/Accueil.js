@@ -1,7 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Accueil.css';
 
 function Accueil() {
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    // Récupérer la préférence de thème sauvegardée ou utiliser le mode sombre par défaut
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('theme-preference');
+            return saved ? saved === 'dark' : true;
+        }
+        return true;
+    });
+
     useEffect(() => {
         // Configuration de l'Intersection Observer
         const observerOptions = {
@@ -161,10 +172,101 @@ function Accueil() {
             });
             clearTimeout(carouselCleanup);
         };
-    }, []);
+    }, [isMenuOpen, isDarkMode]);
+
+    // Appliquer le thème quand isDarkMode change
+    useEffect(() => {
+        const theme = isDarkMode ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme-preference', theme);
+    }, [isDarkMode]);
+
+    // === FONCTIONS DU MENU ===
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
 
     return (
         <div className="accueil">
+            {/* Overlay pour fermer le menu */}
+            {isMenuOpen && (
+                <div
+                    className="menu-overlay"
+                    onClick={closeMenu}
+                    aria-hidden="true"
+                ></div>
+            )}
+
+            {/* Bouton Menu */}
+            <button
+                className={`menu-toggle ${isMenuOpen ? 'menu-open' : ''}`}
+                onClick={toggleMenu}
+                aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                aria-expanded={isMenuOpen}
+            >
+                <span className="menu-toggle-icon">
+                    {isMenuOpen ? '←' : '☰'}
+                </span>
+            </button>
+
+            {/* Menu latéral */}
+            <nav className={`side-menu ${isMenuOpen ? 'menu-open' : ''}`}>
+                <div className="menu-content">
+                    <div className="menu-divider"></div>
+                    <div className="theme-toggle-section">
+                        <button
+                            className={`theme-toggle ${isDarkMode ? 'dark' : 'light'}`}
+                            onClick={toggleTheme}
+                            aria-label={`Passer en mode ${isDarkMode ? 'clair' : 'sombre'}`}
+                        >
+                            <span className="theme-toggle-track">
+                                <span className="theme-toggle-thumb">
+                                    {isDarkMode ? '🌙' : '☀️'}
+                                </span>
+                            </span>
+                            <span className="theme-label">
+                                {isDarkMode ? 'Mode sombre' : 'Mode clair'}
+                            </span>
+                        </button>
+                    </div>
+                    <div className="menu-divider"></div>
+                    <h2 className="menu-title">Menu</h2>
+                    <ul className="menu-links">
+                        <li>
+                            <a href="/" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">🏠</span>
+                                Accueil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/info" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">👨‍💻</span>
+                                À propos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/projets" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">💼</span>
+                                Projets
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">📧</span>
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
             {/* Section Accueil principale */}
             <section className="accueil-hero">
                 <div className="accueil-container">
@@ -173,7 +275,7 @@ function Accueil() {
                     </h1>
 
                     <p className="accueil-description animate-on-scroll">
-                        Ingénieur en formation, passionné par la création d'expériences numériques modernes et intuitives.
+                        Ingénieur en formation, passionné par l'innovation et la réalisation de projets numériques modernes et intuitifs.
                     </p>
 
                     <div className="accueil-buttons animate-on-scroll">
@@ -213,16 +315,14 @@ function Accueil() {
                             <h2 className="about-title">À propos de moi</h2>
 
                             <p className="about-description">
-                                Étudiant passionné par le développement web, je me spécialise dans la création
-                                d'applications modernes avec React et Node.js. Mon parcours m'a permis de
-                                développer une approche créative et technique pour résoudre des problèmes
-                                complexes tout en gardant l'expérience utilisateur au cœur de mes préoccupations.
+                                Récemment diplômé du cursus d'ingénieur de l'INSA Lyon et détenteur du maîtrise en technologies de l'information de l'École de Technologie Supérieure de Montréal.
+                                Blablablablablablablablabalbla
+                                Blablablablablablablablabalbla
                             </p>
 
                             <p className="about-description">
-                                Basé à Sorel-Tracy au Québec, je suis toujours à la recherche de nouveaux
-                                défis et d'opportunités pour apprendre et grandir dans ce domaine en
-                                constante évolution.
+                                Basé à Montréal au Québec, je suis toujours à la recherche de nouveaux
+                                défis et d'opportunités.
                             </p>
 
                             <a href="/info" className="about-link">
