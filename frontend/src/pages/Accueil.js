@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Accueil.css';
 
 function Accueil() {
@@ -12,6 +13,17 @@ function Accueil() {
         }
         return true;
     });
+
+    // Fonction pour scroller vers la section contact
+    const scrollToContact = () => {
+        const contactSection = document.getElementById('contact-section');
+        if (contactSection) {
+            contactSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    };
 
     useEffect(() => {
         // Configuration de l'Intersection Observer
@@ -229,7 +241,7 @@ function Accueil() {
                         >
                             <span className="theme-toggle-track">
                                 <span className="theme-toggle-thumb">
-                                    {isDarkMode ? '🌙' : '☀️'}
+                                    {isDarkMode ? '☾' : '☀'}
                                 </span>
                             </span>
                             <span className="theme-label">
@@ -238,30 +250,30 @@ function Accueil() {
                         </button>
                     </div>
                     <div className="menu-divider"></div>
-                    <h2 className="menu-title">Menu</h2>
+                    <h1 className="menu-title">Menu</h1>
                     <ul className="menu-links">
                         <li>
                             <a href="/" className="menu-link" onClick={closeMenu}>
-                                <span className="menu-link-icon">🏠</span>
-                                Accueil
+                                <span className="menu-link-icon">⌂</span>
+                                ACCUEIL
                             </a>
                         </li>
                         <li>
                             <a href="/info" className="menu-link" onClick={closeMenu}>
-                                <span className="menu-link-icon">👨‍💻</span>
-                                À propos
+                                <span className="menu-link-icon">ℹ</span>
+                                À PROPOS
                             </a>
                         </li>
                         <li>
                             <a href="/projets" className="menu-link" onClick={closeMenu}>
-                                <span className="menu-link-icon">💼</span>
-                                Projets
+                                <span className="menu-link-icon">⚙</span>
+                                PROJETS
                             </a>
                         </li>
                         <li>
-                            <a href="/contact" className="menu-link" onClick={closeMenu}>
-                                <span className="menu-link-icon">📧</span>
-                                Contact
+                            <a href="/info" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">✆</span>
+                                CONTACT
                             </a>
                         </li>
                     </ul>
@@ -275,7 +287,7 @@ function Accueil() {
                     </h1>
 
                     <p className="accueil-description animate-on-scroll">
-                        Ingénieur en formation, passionné par l'innovation et la réalisation de projets numériques modernes et intuitifs.
+                        Ingénieur de formation, passionné par l'innovation et la réalisation de projets modernes et intuitifs.
                     </p>
 
                     <div className="accueil-buttons animate-on-scroll">
@@ -315,9 +327,13 @@ function Accueil() {
                             <h2 className="about-title">À propos de moi</h2>
 
                             <p className="about-description">
-                                Récemment diplômé du cursus d'ingénieur de l'INSA Lyon et détenteur du maîtrise en technologies de l'information de l'École de Technologie Supérieure de Montréal.
-                                Blablablablablablablablabalbla
-                                Blablablablablablablablabalbla
+                                Récemment diplômé du cursus d'ingénieur de l'INSA Lyon et de la maîtrise en technologies de l'information de l'École de Technologie Supérieure de Montréal.
+                                J'aime <span className="highlight-gradient">imaginer</span>, <span className="highlight-gradient">concevoir</span>, <span className="highlight-gradient">résoudre</span>, <span className="highlight-gradient">apprendre</span> et <span className="highlight-gradient">enseigner</span>.
+                                Je vois cet espace comme un moyen de centraliser mes projets mais également mes pensées et diverses idées.
+                                C'est avec plaisir que je partage donc cela avec quiconque visite cet site internet. N'hésitez pas à me partager vos questionnements, propositions d'améliorations constructives ou quelconques remarques !
+
+                                Au plaisir,
+                                Hugo
                             </p>
 
                             <p className="about-description">
@@ -349,19 +365,18 @@ function Accueil() {
                             <div className="project-card">
                                 <div className="project-image">
                                     <div className="project-image-placeholder">
-                                        <span className="project-icon">🌐</span>
+                                        <span className="project-icon">-</span>
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Site E-commerce</h3>
+                                    <h3 className="project-title">Projet à venir</h3>
                                     <p className="project-description">
-                                        Application de commerce en ligne développée avec React et Node.js,
-                                        incluant un système de panier et de paiement sécurisé.
+                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Lorem ipsum dolor sit amet.
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">React</span>
-                                        <span className="project-tag">Node.js</span>
-                                        <span className="project-tag">MongoDB</span>
+                                        <span className="project-tag">Tag 1</span>
+                                        <span className="project-tag">Tag 2</span>
+                                        <span className="project-tag">Tag 3</span>
                                     </div>
                                 </div>
                             </div>
@@ -370,19 +385,18 @@ function Accueil() {
                             <div className="project-card">
                                 <div className="project-image">
                                     <div className="project-image-placeholder">
-                                        <span className="project-icon">📱</span>
+                                        <span className="project-icon">-</span>
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Application Mobile</h3>
+                                    <h3 className="project-title">Projet à venir</h3>
                                     <p className="project-description">
-                                        App mobile responsive pour la gestion de tâches,
-                                        avec synchronisation temps réel et interface intuitive.
+                                        Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">React Native</span>
-                                        <span className="project-tag">Firebase</span>
-                                        <span className="project-tag">TypeScript</span>
+                                        <span className="project-tag">Tag 1</span>
+                                        <span className="project-tag">Tag 2</span>
+                                        <span className="project-tag">Tag 3</span>
                                     </div>
                                 </div>
                             </div>
@@ -391,19 +405,18 @@ function Accueil() {
                             <div className="project-card">
                                 <div className="project-image">
                                     <div className="project-image-placeholder">
-                                        <span className="project-icon">🎨</span>
+                                        <span className="project-icon">-</span>
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Portfolio Créatif</h3>
+                                    <h3 className="project-title">Projet à venir</h3>
                                     <p className="project-description">
-                                        Site portfolio avec animations CSS avancées et design moderne,
-                                        optimisé pour la performance et l'accessibilité.
+                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">HTML/CSS</span>
-                                        <span className="project-tag">JavaScript</span>
-                                        <span className="project-tag">GSAP</span>
+                                        <span className="project-tag">Tag 1</span>
+                                        <span className="project-tag">Tag 2</span>
+                                        <span className="project-tag">Tag 3</span>
                                     </div>
                                 </div>
                             </div>
@@ -412,19 +425,18 @@ function Accueil() {
                             <div className="project-card">
                                 <div className="project-image">
                                     <div className="project-image-placeholder">
-                                        <span className="project-icon">📊</span>
+                                        <span className="project-icon">-</span>
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Dashboard Analytics</h3>
+                                    <h3 className="project-title">Projet à venir</h3>
                                     <p className="project-description">
-                                        Tableau de bord interactif pour visualiser des données complexes
-                                        avec graphiques dynamiques et filtres en temps réel.
+                                        It is a long established fact that a reader will be distracted by the readable content. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">Vue.js</span>
-                                        <span className="project-tag">D3.js</span>
-                                        <span className="project-tag">Python</span>
+                                        <span className="project-tag">Tag 1</span>
+                                        <span className="project-tag">Tag 2</span>
+                                        <span className="project-tag">Tag 3</span>
                                     </div>
                                 </div>
                             </div>
@@ -447,9 +459,9 @@ function Accueil() {
 
                             <div className="contact-info">
                                 <div className="contact-item">
-                                    <div className="contact-icon">📧</div>
+                                    <div className="contact-icon">@</div>
                                     <div className="contact-details">
-                                        <h3 className="contact-label">Email</h3>
+                                        <h2 className="contact-label">Email</h2>
                                         <a
                                             href="mailto:hugo.laface@example.com"
                                             className="contact-link"
@@ -460,9 +472,9 @@ function Accueil() {
                                 </div>
 
                                 <div className="contact-item">
-                                    <div className="contact-icon">💼</div>
+                                    <div className="contact-icon">In</div>
                                     <div className="contact-details">
-                                        <h3 className="contact-label">LinkedIn</h3>
+                                        <h2 className="contact-label">LinkedIn</h2>
                                         <a
                                             href="https://www.linkedin.com/in/hugo-laface-pro/detail/recent-activity/shares/"
                                             className="contact-link"
@@ -479,10 +491,9 @@ function Accueil() {
                         <div className="contact-visual animate-on-scroll">
                             <div className="contact-card">
                                 <div className="contact-card-content">
-                                    <h3 className="contact-card-title">Discutons de votre projet</h3>
+                                    <h2 className="contact-card-title">Discutons ensemble</h2>
                                     <p className="contact-card-text">
-                                        N'hésitez pas à me contacter pour discuter de vos idées
-                                        et voir comment nous pouvons les concrétiser ensemble.
+                                        N'hésitez pas à me contacter si vous avez des questions ou simplement pour discuter.
                                     </p>
                                     <div className="contact-decoration">
                                         <span className="decoration-dot"></span>
@@ -500,9 +511,9 @@ function Accueil() {
             <footer className="footer-section">
                 <div className="footer-container">
                     <p className="footer-text">
-                        Ce site est développé avec ❤️ par Hugo LAFACE •
+                        Ce site est développé par Hugo LAFACE •
                         <a
-                            href="https://github.com/HugoLePoisson/mon-portfolio"
+                            href="https://github.com/HugoLePoisson/site_web_perso"
                             className="footer-link"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -510,7 +521,8 @@ function Accueil() {
                             Code source disponible sur GitHub
                         </a>
                     </p>
-                    <p className="footer-year">© 2025 Hugo LAFACE</p>
+                    <p className="footer-year">MIT License
+                        Copyright (c) 2025 HugoLePoisson</p>
                 </div>
             </footer>
         </div>
