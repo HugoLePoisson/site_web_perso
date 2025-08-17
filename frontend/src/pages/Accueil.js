@@ -343,7 +343,7 @@ function Accueil() {
                 <div className="contact-container">
                     <div className="contact-content">
                         <div className="contact-text animate-on-scroll">
-                            <h2 className="contact-title">Contact</h2>
+                            <h1 className="contact-title">Contact</h1>
 
                             <div className="contact-info">
                                 <div className="contact-item">
@@ -354,7 +354,7 @@ function Accueil() {
                                             href="mailto:hugo.laface@example.com"
                                             className="contact-link"
                                         >
-                                            hugo.laface@example.com
+                                            hugoo.laface@example.com
                                         </a>
                                     </div>
                                 </div>
@@ -369,7 +369,7 @@ function Accueil() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            Mes messages LinkedIn
+                                            Me contacter sur LinkedIn
                                         </a>
                                     </div>
                                 </div>
