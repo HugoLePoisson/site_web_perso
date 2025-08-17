@@ -123,7 +123,7 @@ function Accueil() {
                 setTimeout(() => {
                     const newCardWidth = cards[0].offsetWidth + 24;
                     const newMaxIndex = Math.max(0, cards.length - Math.floor(track.parentElement.offsetWidth / newCardWidth));
-                    
+
                     if (currentIndex > newMaxIndex) {
                         currentIndex = newMaxIndex;
                     }
@@ -232,8 +232,6 @@ function Accueil() {
 
                         <div className="about-image animate-on-scroll">
                             <div className="image-placeholder">
-                                <span className="image-icon">👨‍💻</span>
-                                <p className="image-text">Votre photo ici</p>
                             </div>
                         </div>
                     </div>
@@ -243,8 +241,8 @@ function Accueil() {
             {/* Section Projets */}
             <section className="projects-section">
                 <div className="projects-container">
-                    <h2 className="projects-title animate-on-scroll">Mes Projets</h2>
-                    
+                    <h2 className="projects-title animate-on-scroll">Projets du moment</h2>
+
                     <div className="projects-carousel animate-on-scroll">
                         <div className="projects-track">
                             {/* Projet 1 */}
@@ -257,7 +255,7 @@ function Accueil() {
                                 <div className="project-content">
                                     <h3 className="project-title">Site E-commerce</h3>
                                     <p className="project-description">
-                                        Application de commerce en ligne développée avec React et Node.js, 
+                                        Application de commerce en ligne développée avec React et Node.js,
                                         incluant un système de panier et de paiement sécurisé.
                                     </p>
                                     <div className="project-tags">
@@ -278,7 +276,7 @@ function Accueil() {
                                 <div className="project-content">
                                     <h3 className="project-title">Application Mobile</h3>
                                     <p className="project-description">
-                                        App mobile responsive pour la gestion de tâches, 
+                                        App mobile responsive pour la gestion de tâches,
                                         avec synchronisation temps réel et interface intuitive.
                                     </p>
                                     <div className="project-tags">
@@ -299,7 +297,7 @@ function Accueil() {
                                 <div className="project-content">
                                     <h3 className="project-title">Portfolio Créatif</h3>
                                     <p className="project-description">
-                                        Site portfolio avec animations CSS avancées et design moderne, 
+                                        Site portfolio avec animations CSS avancées et design moderne,
                                         optimisé pour la performance et l'accessibilité.
                                     </p>
                                     <div className="project-tags">
@@ -339,6 +337,82 @@ function Accueil() {
                     </div>
                 </div>
             </section>
+
+            {/* Section Contact */}
+            <section className="contact-section">
+                <div className="contact-container">
+                    <div className="contact-content">
+                        <div className="contact-text animate-on-scroll">
+                            <h2 className="contact-title">Contact</h2>
+
+                            <div className="contact-info">
+                                <div className="contact-item">
+                                    <div className="contact-icon">📧</div>
+                                    <div className="contact-details">
+                                        <h3 className="contact-label">Email</h3>
+                                        <a
+                                            href="mailto:hugo.laface@example.com"
+                                            className="contact-link"
+                                        >
+                                            hugo.laface@example.com
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div className="contact-item">
+                                    <div className="contact-icon">💼</div>
+                                    <div className="contact-details">
+                                        <h3 className="contact-label">LinkedIn</h3>
+                                        <a
+                                            href="https://www.linkedin.com/in/hugo-laface-pro/detail/recent-activity/shares/"
+                                            className="contact-link"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Mes messages LinkedIn
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="contact-visual animate-on-scroll">
+                            <div className="contact-card">
+                                <div className="contact-card-content">
+                                    <h3 className="contact-card-title">Discutons de votre projet</h3>
+                                    <p className="contact-card-text">
+                                        N'hésitez pas à me contacter pour discuter de vos idées
+                                        et voir comment nous pouvons les concrétiser ensemble.
+                                    </p>
+                                    <div className="contact-decoration">
+                                        <span className="decoration-dot"></span>
+                                        <span className="decoration-dot"></span>
+                                        <span className="decoration-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="footer-section">
+                <div className="footer-container">
+                    <p className="footer-text">
+                        Ce site est développé avec ❤️ par Hugo LAFACE •
+                        <a
+                            href="https://github.com/HugoLePoisson/mon-portfolio"
+                            className="footer-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Code source disponible sur GitHub
+                        </a>
+                    </p>
+                    <p className="footer-year">© 2025 Hugo LAFACE</p>
+                </div>
+            </footer>
         </div>
     );
 }
