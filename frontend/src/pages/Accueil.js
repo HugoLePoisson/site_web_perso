@@ -34,11 +34,132 @@ function Accueil() {
             observer.observe(element);
         });
 
+        // === LOGIQUE DU CARROUSEL ===
+        const initCarousel = () => {
+            const track = document.querySelector('.projects-track');
+            const prevBtn = document.querySelector('.nav-prev');
+            const nextBtn = document.querySelector('.nav-next');
+            const cards = document.querySelectorAll('.project-card');
+
+            if (!track || !prevBtn || !nextBtn || cards.length === 0) return;
+
+            let currentIndex = 0;
+            const cardWidth = cards[0].offsetWidth + 24; // largeur de la card + gap
+            const maxIndex = Math.max(0, cards.length - Math.floor(track.parentElement.offsetWidth / cardWidth));
+
+            const updateCarousel = () => {
+                const translateX = -currentIndex * cardWidth;
+                track.style.transform = `translateX(${translateX}px)`;
+
+                // Gestion des états des boutons
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= maxIndex;
+            };
+
+            const goToPrev = () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            };
+
+            const goToNext = () => {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            };
+
+            // Event listeners
+            prevBtn.addEventListener('click', goToPrev);
+            nextBtn.addEventListener('click', goToNext);
+
+            // Support du swipe tactile
+            let startX = 0;
+            let isDragging = false;
+
+            const handleTouchStart = (e) => {
+                startX = e.touches ? e.touches[0].clientX : e.clientX;
+                isDragging = true;
+            };
+
+            const handleTouchMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            };
+
+            const handleTouchEnd = (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+
+                const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 50) { // Seuil minimum pour déclencher le swipe
+                    if (diff > 0) {
+                        goToNext();
+                    } else {
+                        goToPrev();
+                    }
+                }
+            };
+
+            // Event listeners tactiles
+            track.addEventListener('touchstart', handleTouchStart, { passive: true });
+            track.addEventListener('touchmove', handleTouchMove, { passive: false });
+            track.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+            // Event listeners souris
+            track.addEventListener('mousedown', handleTouchStart);
+            track.addEventListener('mousemove', handleTouchMove);
+            track.addEventListener('mouseup', handleTouchEnd);
+            track.addEventListener('mouseleave', handleTouchEnd);
+
+            // Initialisation
+            updateCarousel();
+
+            // Redimensionnement de la fenêtre
+            const handleResize = () => {
+                setTimeout(() => {
+                    const newCardWidth = cards[0].offsetWidth + 24;
+                    const newMaxIndex = Math.max(0, cards.length - Math.floor(track.parentElement.offsetWidth / newCardWidth));
+                    
+                    if (currentIndex > newMaxIndex) {
+                        currentIndex = newMaxIndex;
+                    }
+                    updateCarousel();
+                }, 100);
+            };
+
+            window.addEventListener('resize', handleResize);
+
+            // Nettoyage
+            return () => {
+                prevBtn.removeEventListener('click', goToPrev);
+                nextBtn.removeEventListener('click', goToNext);
+                track.removeEventListener('touchstart', handleTouchStart);
+                track.removeEventListener('touchmove', handleTouchMove);
+                track.removeEventListener('touchend', handleTouchEnd);
+                track.removeEventListener('mousedown', handleTouchStart);
+                track.removeEventListener('mousemove', handleTouchMove);
+                track.removeEventListener('mouseup', handleTouchEnd);
+                track.removeEventListener('mouseleave', handleTouchEnd);
+                window.removeEventListener('resize', handleResize);
+            };
+        };
+
+        // Initialiser le carrousel après un court délai pour s'assurer que le DOM est prêt
+        const carouselCleanup = setTimeout(() => {
+            const cleanup = initCarousel();
+            return cleanup;
+        }, 100);
+
         // Nettoyage lors du démontage du composant
         return () => {
             animatedElements.forEach(element => {
                 observer.unobserve(element);
             });
+            clearTimeout(carouselCleanup);
         };
     }, []);
 
@@ -111,8 +232,110 @@ function Accueil() {
 
                         <div className="about-image animate-on-scroll">
                             <div className="image-placeholder">
+                                <span className="image-icon">👨‍💻</span>
+                                <p className="image-text">Votre photo ici</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section Projets */}
+            <section className="projects-section">
+                <div className="projects-container">
+                    <h2 className="projects-title animate-on-scroll">Mes Projets</h2>
+                    
+                    <div className="projects-carousel animate-on-scroll">
+                        <div className="projects-track">
+                            {/* Projet 1 */}
+                            <div className="project-card">
+                                <div className="project-image">
+                                    <div className="project-image-placeholder">
+                                        <span className="project-icon">🌐</span>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <h3 className="project-title">Site E-commerce</h3>
+                                    <p className="project-description">
+                                        Application de commerce en ligne développée avec React et Node.js, 
+                                        incluant un système de panier et de paiement sécurisé.
+                                    </p>
+                                    <div className="project-tags">
+                                        <span className="project-tag">React</span>
+                                        <span className="project-tag">Node.js</span>
+                                        <span className="project-tag">MongoDB</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Projet 2 */}
+                            <div className="project-card">
+                                <div className="project-image">
+                                    <div className="project-image-placeholder">
+                                        <span className="project-icon">📱</span>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <h3 className="project-title">Application Mobile</h3>
+                                    <p className="project-description">
+                                        App mobile responsive pour la gestion de tâches, 
+                                        avec synchronisation temps réel et interface intuitive.
+                                    </p>
+                                    <div className="project-tags">
+                                        <span className="project-tag">React Native</span>
+                                        <span className="project-tag">Firebase</span>
+                                        <span className="project-tag">TypeScript</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Projet 3 */}
+                            <div className="project-card">
+                                <div className="project-image">
+                                    <div className="project-image-placeholder">
+                                        <span className="project-icon">🎨</span>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <h3 className="project-title">Portfolio Créatif</h3>
+                                    <p className="project-description">
+                                        Site portfolio avec animations CSS avancées et design moderne, 
+                                        optimisé pour la performance et l'accessibilité.
+                                    </p>
+                                    <div className="project-tags">
+                                        <span className="project-tag">HTML/CSS</span>
+                                        <span className="project-tag">JavaScript</span>
+                                        <span className="project-tag">GSAP</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Projet 4 */}
+                            <div className="project-card">
+                                <div className="project-image">
+                                    <div className="project-image-placeholder">
+                                        <span className="project-icon">📊</span>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <h3 className="project-title">Dashboard Analytics</h3>
+                                    <p className="project-description">
+                                        Tableau de bord interactif pour visualiser des données complexes
+                                        avec graphiques dynamiques et filtres en temps réel.
+                                    </p>
+                                    <div className="project-tags">
+                                        <span className="project-tag">Vue.js</span>
+                                        <span className="project-tag">D3.js</span>
+                                        <span className="project-tag">Python</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="projects-navigation">
+                        <button className="nav-btn nav-prev" aria-label="Projet précédent">←</button>
+                        <button className="nav-btn nav-next" aria-label="Projet suivant">→</button>
                     </div>
                 </div>
             </section>
