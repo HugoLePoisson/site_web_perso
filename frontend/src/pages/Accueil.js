@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Accueil.css';
+import BurgerMenu from '../components/BurgerMenu';
 
 function Accueil() {
 
@@ -216,8 +217,9 @@ function Accueil() {
                     aria-hidden="true"
                 ></div>
             )}
-
+            
             {/* Bouton Menu */}
+            {/*
             <button
                 className={`menu-toggle ${isMenuOpen ? 'menu-open' : ''}`}
                 onClick={toggleMenu}
@@ -228,8 +230,10 @@ function Accueil() {
                     {isMenuOpen ? '←' : '☰'}
                 </span>
             </button>
-
+            */}
+            
             {/* Menu latéral */}
+            {/*
             <nav className={`side-menu ${isMenuOpen ? 'menu-open' : ''}`}>
                 <div className="menu-content">
                     <div className="menu-divider"></div>
@@ -265,6 +269,12 @@ function Accueil() {
                             </a>
                         </li>
                         <li>
+                            <a href="/article" className="menu-link" onClick={closeMenu}>
+                                <span className="menu-link-icon">✎</span>
+                                ARTICLES
+                            </a>
+                        </li>
+                        <li>
                             <a href="/projets" className="menu-link" onClick={closeMenu}>
                                 <span className="menu-link-icon">⚙</span>
                                 PROJETS
@@ -279,6 +289,8 @@ function Accueil() {
                     </ul>
                 </div>
             </nav>
+            */}
+            <BurgerMenu />
             {/* Section Accueil principale */}
             <section className="accueil-hero">
                 <div className="accueil-container">
@@ -337,7 +349,7 @@ function Accueil() {
                             </p>
 
                             <p className="about-description">
-                                Basé à Montréal au Québec, je suis toujours à la recherche de nouveaux
+                                Entre Montréal et Paris, je suis toujours à la recherche de nouveaux
                                 défis et d'opportunités.
                             </p>
 

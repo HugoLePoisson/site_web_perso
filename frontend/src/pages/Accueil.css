@@ -364,29 +364,6 @@
     width: 100%;
 }
 
-/* Style 2 : Soulignement animé */
-.highlight-underline {
-    position: relative;
-    color: var(--text-high-contrast);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.highlight-underline::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: -2px;
-    left: 0;
-    background: linear-gradient(90deg, var(--solid-background), #ff8f6b);
-    transition: width 0.4s ease;
-}
-
-.highlight-underline:hover::after {
-    width: 100%;
-}
-
 
 /* === TITRE PRINCIPAL === */
 .accueil-title {
