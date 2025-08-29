@@ -1,0 +1,23 @@
+{
+  "name": "blog-fullstack",
+  "version": "1.0.0",
+  "description": "Blog avec backend Node.js et frontend React",
+  "main": "backend/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && nodemon index.js",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && NODE_ENV=production node index.js",
+    "build:full": "npm run build && npm start",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

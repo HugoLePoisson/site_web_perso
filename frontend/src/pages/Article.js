@@ -11,6 +11,11 @@ function Article() {
     const [pagination, setPagination] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
 
+    // Configuration de l'URL de base de l'API pour production
+    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+        ? '/api'  // En production, utiliser le même serveur
+        : (process.env.REACT_APP_API_URL || 'http://localhost:5000/api'); // En développement
+
 
     const fetchArticles = async (category = 'all', page = 1) => {
         try {
@@ -27,20 +32,53 @@ function Article() {
                 params.append('category', category);
             }
 
-            const response = await fetch(`/api/articles?${params}`);
+            const url = `${API_BASE_URL}/articles?${params}`;
+            console.log('Fetching articles from:', url);
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
             
             if (!response.ok) {
-                throw new Error(`Erreur HTTP: ${response.status}`);
+                throw new Error(`Erreur HTTP: ${response.status} - ${response.statusText}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                console.error('Response is not JSON:', text);
+                throw new Error('La réponse du serveur n\'est pas du JSON valide');
             }
 
             const data = await response.json();
+
+            console.log('Articles data received:', data);
             
-            setArticles(data.articles);
+            setArticles(data.articles || []);
             setPagination(data.pagination);
             
         } catch (err) {
             console.error('Erreur lors du chargement des articles:', err);
             setError('Impossible de charger les articles. Veuillez réessayer.');
+
+            // Fallback data
+            setArticles([
+                {
+                    slug: "exemple-article",
+                    title: "Article d'exemple",
+                    excerpt: "Ceci est un article d'exemple.",
+                    category: "tech",
+                    date: "2025-01-15",
+                    readTime: 5,
+                    tags: ["Exemple"],
+                    views: 0,
+                    likes: 0
+                }
+            ]);
         } finally {
             setLoading(false);
         }
@@ -112,10 +150,24 @@ function Article() {
     // Fonction pour récupérer les statistiques des catégories
     const fetchCategories = async () => {
         try {
-            const response = await fetch('/api/articles/categories/stats');
-            
+            const url = `${API_BASE_URL}/articles/categories/stats`;
+            console.log('Fetching categories from:', url);
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
             if (!response.ok) {
                 throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('La réponse du serveur n\'est pas du JSON valide');
             }
 
             const data = await response.json();
@@ -141,6 +193,12 @@ function Article() {
             setTimeout(() => {
                 setLoading(false);
             }, 1000);
+    }, [selectedCategory, currentPage]);
+
+    useEffect(() => {
+        if (categories.length > 0) {
+            fetchArticles(selectedCategory, currentPage);
+        }
     }, [selectedCategory, currentPage]);
 
     // Gestionnaire de changement de catégorie
@@ -194,16 +252,19 @@ function Article() {
         <div className="article-page">
             <BurgerMenu />
             <div className="article-container">
-                {/* Header */}
                 <header className="article-header">
                     <h1 className="article-page-title">Articles & Réflexions</h1>
                     <p className="article-page-description">
                         Découvrez mes <span className="highlight-gradient">réflexions</span> sur la technologie, 
                         des <span className="highlight-underline">tutoriels pratiques</span> et mon parcours d'ingénieur.
                     </p>
+                    {error && (
+                        <div className="api-status-warning">
+                            <p>⚠️ {process.env.NODE_ENV === 'development' ? 'Mode développement - ' : ''}Données d'exemple affichées</p>
+                        </div>
+                    )}
                 </header>
 
-                {/* Filtres */}
                 <nav className="article-filters">
                     {categories.map(category => (
                         <button
@@ -217,7 +278,6 @@ function Article() {
                     ))}
                 </nav>
 
-                {/* Liste des articles */}
                 <main className="articles-grid">
                     {articles.map(article => (
                         <article key={article.slug} className="article-card">
@@ -274,14 +334,12 @@ function Article() {
                     ))}
                 </main>
 
-                {/* Message si aucun article */}
                 {articles.length === 0 && !loading && (
                     <div className="no-articles">
                         <p>Aucun article trouvé dans cette catégorie.</p>
                     </div>
                 )}
 
-                {/* Pagination */}
                 {pagination && pagination.totalPages > 1 && (
                     <nav className="pagination">
                         <button

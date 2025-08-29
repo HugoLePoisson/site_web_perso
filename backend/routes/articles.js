@@ -22,20 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /api/articles/:slug - Récupérer un article spécifique grâce à son slug
-router.get('/:slug', async (req, res) => {
-  try {
-    const { slug } = req.params;
-    const article = await contentService.getArticleBySlug(slug);
-    res.json({ article });
-  } catch (error) {
-    if (error.message === 'Article non trouvé' || error.message === 'Article non publié') {
-      return res.status(404).json({ error: error.message });
-    }
-    console.error('Erreur lors de la récupération de l\'article:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
+// Note : Test de remonter les routes les plus spécifiques en premier pour éviter qu'elles soient interceptées par les autres
 
 // GET /api/articles/categories/stats - Statistiques des catégories (si nécessaire, on verra)
 router.get('/categories/stats', async (req, res) => {
@@ -73,5 +60,24 @@ router.post('/:slug/like', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+// GET /api/articles/:slug - Récupérer un article spécifique grâce à son slug
+router.get('/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const article = await contentService.getArticleBySlug(slug);
+    res.json({ article });
+  } catch (error) {
+    if (error.message === 'Article non trouvé' || error.message === 'Article non publié') {
+      return res.status(404).json({ error: error.message });
+    }
+    console.error('Erreur lors de la récupération de l\'article:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+
+
+
 
 module.exports = router;
