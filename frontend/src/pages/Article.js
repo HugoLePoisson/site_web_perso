@@ -4,9 +4,48 @@ import BurgerMenu from '../components/BurgerMenu';
 
 function Article() {
     const [articles, setArticles] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const [pagination, setPagination] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
+
+    const fetchArticles = async (category = 'all', page = 1) => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            // Construction de l'URL avec les paramètres
+            const params = new URLSearchParams({
+                page: page.toString(),
+                limit: '10' // Nombre d'articles par page
+            });
+
+            if (category !== 'all') {
+                params.append('category', category);
+            }
+
+            const response = await fetch(`/api/articles?${params}`);
+            
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            setArticles(data.articles);
+            setPagination(data.pagination);
+            
+        } catch (err) {
+            console.error('Erreur lors du chargement des articles:', err);
+            setError('Impossible de charger les articles. Veuillez réessayer.');
+        } finally {
+            setLoading(false);
+        }
+    };
+    /*
     // Données d'exemple (à remplacer par des appels API plus tard)
     useEffect(() => {
         // Simulation d'un appel API
@@ -68,24 +107,84 @@ function Article() {
 
         fetchArticles();
     }, []);
+    */
 
-    const filteredArticles = selectedCategory === 'all' 
-        ? articles 
-        : articles.filter(article => article.category === selectedCategory);
+    // Fonction pour récupérer les statistiques des catégories
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('/api/articles/categories/stats');
+            
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
 
-    const categories = [
-        { id: 'all', name: 'Tous les articles', count: articles.length },
-        { id: 'tech', name: 'Technologie', count: articles.filter(a => a.category === 'tech').length },
-        { id: 'tutorial', name: 'Tutoriels', count: articles.filter(a => a.category === 'tutorial').length },
-        { id: 'personnel', name: 'Personnel', count: articles.filter(a => a.category === 'personnel').length }
-    ];
+            const data = await response.json();
+            setCategories(data.categories);
+            
+        } catch (err) {
+            console.error('Erreur lors du chargement des catégories:', err);
+            // Utiliser des catégories par défaut si l'API échoue
+            setCategories([
+                { id: 'all', name: 'Tous les articles', count: 0 },
+                { id: 'tech', name: 'Technologie', count: 0 },
+                { id: 'tutorial', name: 'Tutoriels', count: 0 },
+                { id: 'personnel', name: 'Personnel', count: 0 }
+            ]);
+        }
+    };
 
+    // Chargement initial
+    useEffect(() => {
+        fetchCategories();
+        fetchArticles(selectedCategory, currentPage);
+        // Simulation d'un délai de chargement
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+    }, [selectedCategory, currentPage]);
+
+    // Gestionnaire de changement de catégorie
+    const handleCategoryChange = (categoryId) => {
+        setSelectedCategory(categoryId);
+        setCurrentPage(1); // Reset à la première page
+    };
+
+    // Gestionnaire de changement de page
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    // Fonction pour naviguer vers un article
+    const handleReadArticle = (slug) => {
+        // Navigation vers la page de l'article individuel
+        window.location.href = `/article/${slug}`;
+        // Ou avec React Router : navigate(`/article/${slug}`);
+    };
+
+    // Affichage du loading
     if (loading) {
         return (
             <div className="article-page">
                 <div className="loading-container">
                     <div className="loading-spinner"></div>
                     <p>Chargement des articles...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Affichage des erreurs
+    if (error) {
+        return (
+            <div className="article-page">
+                <div className="error-container">
+                    <p className="error-message">{error}</p>
+                    <button 
+                        className="retry-button"
+                        onClick={() => fetchArticles(selectedCategory, currentPage)}
+                    >
+                        Réessayer
+                    </button>
                 </div>
             </div>
         );
@@ -110,7 +209,7 @@ function Article() {
                         <button
                             key={category.id}
                             className={`filter-btn ${selectedCategory === category.id ? 'active' : ''}`}
-                            onClick={() => setSelectedCategory(category.id)}
+                            onClick={() => handleCategoryChange(category.id)}
                         >
                             {category.name}
                             <span className="filter-count">({category.count})</span>
@@ -120,10 +219,16 @@ function Article() {
 
                 {/* Liste des articles */}
                 <main className="articles-grid">
-                    {filteredArticles.map(article => (
-                        <article key={article.id} className="article-card">
+                    {articles.map(article => (
+                        <article key={article.slug} className="article-card">
                             <div className="article-image">
-                                <img src={article.image} alt={article.title} />
+                                <img 
+                                    src={article.image || "/api/placeholder/400/250"} 
+                                    alt={article.title}
+                                    onError={(e) => {
+                                        e.target.src = "/api/placeholder/400/250";
+                                    }}
+                                />
                                 <div className="article-category">{article.category}</div>
                             </div>
                             
@@ -136,34 +241,70 @@ function Article() {
                                             day: 'numeric'
                                         })}
                                     </time>
-                                    <span className="article-read-time">{article.readTime} de lecture</span>
+                                    <span className="article-read-time">{article.readTime} min de lecture</span>
                                 </div>
 
                                 <h2 className="article-title">{article.title}</h2>
                                 <p className="article-excerpt">{article.excerpt}</p>
 
                                 <div className="article-tags">
-                                    {article.tags.map(tag => (
+                                    {article.tags && article.tags.map(tag => (
                                         <span key={tag} className="article-tag">#{tag}</span>
                                     ))}
                                 </div>
 
-                                <button className="article-read-more">
-                                    Lire la suite
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
-                                    </svg>
-                                </button>
+                                <div className="article-footer">
+                                    <button 
+                                        className="article-read-more"
+                                        onClick={() => handleReadArticle(article.slug)}
+                                    >
+                                        Lire la suite
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    <div className="article-stats">
+                                        <span className="views">{article.views || 0} vues</span>
+                                        <span className="likes">{article.likes || 0} ❤️</span>
+                                    </div>
+                                </div>
                             </div>
                         </article>
                     ))}
                 </main>
 
                 {/* Message si aucun article */}
-                {filteredArticles.length === 0 && (
+                {articles.length === 0 && !loading && (
                     <div className="no-articles">
                         <p>Aucun article trouvé dans cette catégorie.</p>
                     </div>
+                )}
+
+                {/* Pagination */}
+                {pagination && pagination.totalPages > 1 && (
+                    <nav className="pagination">
+                        <button
+                            className="pagination-btn"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            Précédent
+                        </button>
+                        
+                        <div className="pagination-info">
+                            Page {pagination.currentPage} sur {pagination.totalPages}
+                            ({pagination.totalArticles} articles)
+                        </div>
+                        
+                        <button
+                            className="pagination-btn"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === pagination.totalPages}
+                        >
+                            Suivant
+                        </button>
+                    </nav>
                 )}
             </div>
         </div>

@@ -4,6 +4,7 @@ require('dotenv').config();
 
 // Import des routes
 const profileRoutes = require('./routes/profile');
+const articlesRouter = require('./routes/articles');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Utilisation des routes
 app.use('/api/profile', profileRoutes);
+app.use('/api/articles', articlesRouter);
 
 // Route de test
 app.get('/api/hello', (req, res) => {
