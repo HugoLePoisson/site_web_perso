@@ -1,9 +1,9 @@
 ---
-title: "Les tendances du développement web en 2026"
-excerpt: "Découvrez les technologies qui vont façonner le web cette année : React Server Components, l'essor de l'IA générative et les nouveaux frameworks qui révolutionnent notre façon de développer."
-category: "tech"
-tags: ["React", "JavaScript", "IA", "Web Development"]
-date: "2026-01-15"
+title: "Le pouvoir de la parole"
+excerpt: "Comment l'art de manipuler les mots permets d'orienter son discours"
+category: "socio"
+tags: ["Sociologie", "Rhétorique", "Biais"]
+date: "2025-08-29"
 published: true
 featured: true
 author: "Hugo LAFACE"
@@ -12,14 +12,18 @@ image:
   alt: "Illustration des tendances développement web 2026"
   caption: "Les technologies émergentes de 2026"
 seo:
-  metaTitle: "Tendances Développement Web 2026 - Technologies Émergentes"
+  metaTitle: "Le pouvoir de la parole - Techniques rhétoriques et biais cognitifs"
   metaDescription: "Découvrez les tendances tech 2026 : React Server Components, IA générative, nouveaux frameworks. Guide complet des technologies web émergentes."
-  keywords: ["développement web", "tendances 2026", "React", "IA", "JavaScript"]
+  keywords: ["Sociologie", "Rhétorique", "Biais cognitifs"]
 ---
 
-# Les tendances du développement web en 2026
+Cet article est tiré d'une micro-formation originalement destinée à être présentée à l'oral. Je vous la partage ici, au format textuel, dans l'espoir que chacun puisse en tirer un quelque chose.
 
-Le développement web évolue à un rythme effréné. Cette année marque un tournant avec l'émergence de technologies qui transforment radicalement notre approche du développement d'applications web.
+# Le pouvoir de la parole - Techniques rhétoriques et biais cognitifs
+
+--
+
+L'idée est d'abord une thématique simple et à laquelle tout le monde puisse se référer, d'une manière légère et pourtant, qui reste intéressante. 
 
 ## React Server Components : La révolution côté serveur
 

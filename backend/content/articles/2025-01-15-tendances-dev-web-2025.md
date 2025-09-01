@@ -1,5 +1,5 @@
 ---
-title: "Le pouvoir de la parole"
+title: "Les tendances du développement web en 2025"
 excerpt: "Découvrez les technologies qui vont façonner le web cette année : React Server Components, l'essor de l'IA générative et les nouveaux frameworks qui révolutionnent notre façon de développer."
 category: "tech"
 tags: ["React", "JavaScript", "IA", "Web Development"]

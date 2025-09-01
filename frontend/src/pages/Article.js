@@ -180,7 +180,8 @@ function Article() {
                 { id: 'all', name: 'Tous les articles', count: 0 },
                 { id: 'tech', name: 'Technologie', count: 0 },
                 { id: 'tutorial', name: 'Tutoriels', count: 0 },
-                { id: 'personnel', name: 'Personnel', count: 0 }
+                { id: 'personnel', name: 'Personnel', count: 0 },
+                { id: 'socio', name: 'Sociologie', count: 0 }
             ]);
         }
     };
