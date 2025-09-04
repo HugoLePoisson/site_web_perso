@@ -102,6 +102,11 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Route pour garder le backend actif
+app.get('/ping', (req, res) => {
+  res.json({ status: 'pong', timestamp: new Date() });
+});
+
 // Route racine pour l'API
 app.get('/', (req, res) => {
     res.json({ 

@@ -10,25 +10,28 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        {/* Menu hamburger latéral */}
-        <SideMenu />
-        
-        {/* Contenu qui change selon l'URL */}
-        <main>
-          <Routes>
-            <Route path="/" element={<Accueil />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/info" element={<Info />} />
-            <Route path="/projets" element={<Projets />} />
-            <Route path="/article" element={<Article />} />
-            {/* Route 404 */}
-            <Route path="*" element={<div>Page non trouvée</div>} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+
+    
+
+  <Router>
+    <div className="App">
+      {/* Menu hamburger latéral */}
+      <SideMenu />
+
+      {/* Contenu qui change selon l'URL */}
+      <main>
+        <Routes>
+          <Route path="/" element={<Accueil />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/projets" element={<Projets />} />
+          <Route path="/article" element={<Article />} />
+          {/* Route 404 */}
+          <Route path="*" element={<div>Page non trouvée</div>} />
+        </Routes>
+      </main>
+    </div>
+  </Router>
   );
 }
 
