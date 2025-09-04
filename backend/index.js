@@ -78,7 +78,7 @@ console.log('Test');
 // Configuration CORS pour permettre les requêtes depuis Vercel
 app.use(cors({
     origin: [
-        'https://votre-site.vercel.app', // Remplacez par votre URL Vercel
+        'https://site-web-perso-cjp2.onrender.com', // URL render obtenue après beaucoup d'essai (alors que ce n'est pas compliqué)
         'http://localhost:3000' // Pour le développement local
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
