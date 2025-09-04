@@ -4,7 +4,7 @@ const router = express.Router();
 const contentService = require('../services/contentService');
 
 // GET /api/articles - Récupérer tous les articles et on peut filtrer avec toutes les options donc cool
-router.get('/', async (req, res) => {
+router.get('/articles', async (req, res) => {
   try {
     const filters = {
       category: req.query.category,
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 // Note : Test de remonter les routes les plus spécifiques en premier pour éviter qu'elles soient interceptées par les autres
 
 // GET /api/articles/categories/stats - Statistiques des catégories (si nécessaire, on verra)
-router.get('/categories/stats', async (req, res) => {
+router.get('/articles/categories/stats', async (req, res) => {
   try {
     const categories = await contentService.getCategoryStats();
     res.json({ categories });
