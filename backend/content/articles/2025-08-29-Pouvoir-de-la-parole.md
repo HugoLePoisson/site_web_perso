@@ -1,16 +1,16 @@
 ---
 title: "Le pouvoir de la parole"
 excerpt: "Comment l'art de manipuler les mots permets d'orienter son discours"
-category: "socio"
+category: "reflexion"
 tags: ["Sociologie", "Rhétorique", "Biais"]
 date: "2025-08-29"
 published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "/images/tendances-dev-web-2026.jpg"
-  alt: "Illustration des tendances développement web 2026"
-  caption: "Les technologies émergentes de 2026"
+  url: "../images/article_parole.jpg"
+  alt: "Illustration de l'article - Le pouvoir de la parole"
+  caption: "Deux Microphones à Condensateur Gris - Pexels"
 seo:
   metaTitle: "Le pouvoir de la parole - Techniques rhétoriques et biais cognitifs"
   metaDescription: "Découvrez les tendances tech 2026 : React Server Components, IA générative, nouveaux frameworks. Guide complet des technologies web émergentes."
