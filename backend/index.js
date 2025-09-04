@@ -79,6 +79,7 @@ console.log('Test');
 app.use(cors({
     origin: [
         'https://site-web-perso-cjp2.onrender.com', // URL render obtenue après beaucoup d'essai (alors que ce n'est pas compliqué)
+        'https://site-web-perso-eight.vercel.app', // Autorisation pour que le frontend puisse appeler mon backend
         'http://localhost:3000' // Pour le développement local
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
