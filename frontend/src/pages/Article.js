@@ -13,7 +13,7 @@ function Article() {
 
     // Configuration de l'URL de base de l'API pour production
     const API_BASE_URL = process.env.NODE_ENV === 'production' 
-        ? '/api'  // En production, utiliser le même serveur
+        ? 'https://site-web-perso-cjp2.onrender.com/api'  // En production, utiliser le même serveur
         : (process.env.REACT_APP_API_URL || 'http://localhost:5000/api'); // En développement
 
 
