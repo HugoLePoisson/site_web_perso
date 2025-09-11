@@ -1,0 +1,24 @@
+- name: Ping backend service
+        run: |
+          echo "Pinging service at $(date)..."
+          
+          # Tentative avec timeout de 30 secondes
+          response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://site-web-perso-cjp2.onrender.com/ping)
+          
+          if [ $response -eq 200 ]; then
+            echo "✅ Service is alive (HTTP $response)"
+          else
+            echo "❌ Service returned HTTP $response"
+            echo "Retrying in 30 seconds..."
+            sleep 30
+            
+            # Deuxième tentative
+            response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://site-web-perso-cjp2.onrender.com/ping)
+            
+            if [ $response -eq 200 ]; then
+              echo "✅ Service recovered (HTTP $response)"
+            else
+              echo "❌ Service still down (HTTP $response)"
+              exit 1
+            fi
+          fi
