@@ -1,4 +1,22 @@
-- name: Ping backend service
+name: Keep Render Service Alive
+
+# Déclencheur : toutes les 13 minutes (checker la limite de github)
+on:
+  schedule:
+    - cron: '*/13 * * * *'
+  
+  # Permet aussi de déclencher manuellement
+  workflow_dispatch:
+
+jobs:
+  ping-service:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Ping backend service
         run: |
           echo "Pinging service at $(date)..."
           
@@ -22,3 +40,6 @@
               exit 1
             fi
           fi
+      
+      - name: Log timestamp
+        run: echo "Last ping at $(date)"
