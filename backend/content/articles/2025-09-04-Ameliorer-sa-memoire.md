@@ -8,7 +8,7 @@ published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "../images/article_memoire.jpg"
+  url: "/images/article_memoire.jpg"
   alt: "Illustration de l'article - Comment améliorer sa mémoire - Techniques et astuces"
   caption: "Mémorial De L'holocauste - Pexels"
 seo:

@@ -16,7 +16,7 @@ class ContentService {
     try {
       const files = await fs.readdir(this.articlesDir);
       const markdownFiles = files.filter(file => file.endsWith('.md'));
-      
+
       const articles = await Promise.all(
         markdownFiles.map(async (file) => {
           const article = await this.getArticleFromFile(file);
@@ -29,19 +29,19 @@ class ContentService {
 
       // Appliquer les filtres
       if (filters.category && filters.category !== 'all') {
-        filteredArticles = filteredArticles.filter(article => 
+        filteredArticles = filteredArticles.filter(article =>
           article.category === filters.category
         );
       }
 
       if (filters.tag) {
-        filteredArticles = filteredArticles.filter(article => 
+        filteredArticles = filteredArticles.filter(article =>
           article.tags && article.tags.includes(filters.tag)
         );
       }
 
       if (filters.featured) {
-        filteredArticles = filteredArticles.filter(article => 
+        filteredArticles = filteredArticles.filter(article =>
           article.featured === true
         );
       }
@@ -77,13 +77,13 @@ class ContentService {
     try {
       const files = await fs.readdir(this.articlesDir);
       const file = files.find(f => f.includes(slug) || f.replace('.md', '') === slug);
-      
+
       if (!file) {
         throw new Error('Article non trouvé');
       }
 
       const article = await this.getArticleFromFile(file);
-      
+
       if (article.published === false) {
         throw new Error('Article non publié');
       }
@@ -109,16 +109,16 @@ class ContentService {
     try {
       const filePath = path.join(this.articlesDir, filename);
       const fileContent = await fs.readFile(filePath, 'utf-8');
-      
+
       // Parser le frontmatter et le contenu
       const { data: frontmatter, content } = matter(fileContent);
-      
+
       // Extraire le slug du nom de fichier
       const slug = this.extractSlugFromFilename(filename);
-      
+
       // Calculer le temps de lecture
       const readTime = this.calculateReadTime(content);
-      
+
       // Récupérer les métadonnées additionnelles
       const metadata = await this.getArticleMetadata(slug);
 
@@ -133,7 +133,10 @@ class ContentService {
         published: frontmatter.published !== false,
         featured: frontmatter.featured || false,
         author: frontmatter.author || 'Hugo LAFACE',
-        image: frontmatter.image || null,
+        // Correction pour l'image - normaliser les chemins
+        image: frontmatter.image?.url || frontmatter.image || null,
+        imageAlt: frontmatter.image?.alt || frontmatter.title,
+        imageCaption: frontmatter.image?.caption || null,
         readTime,
         views: metadata.views || 0,
         likes: metadata.likes || 0,
@@ -143,6 +146,34 @@ class ContentService {
       console.error(`Erreur lors de la lecture du fichier ${filename}:`, error);
       throw error;
     }
+  }
+
+  // Normaliser les chemins d'images
+  normalizeImagePath(imagePath) {
+    if (!imagePath) return null;
+
+    // Si c'est un objet avec une propriété url
+    if (typeof imagePath === 'object' && imagePath.url) {
+      imagePath = imagePath.url;
+    }
+
+    // Normaliser les chemins pour qu'ils pointent vers l'API
+    if (imagePath.startsWith('/images/')) {
+      // Garder tel quel, sera traité côté frontend
+      return imagePath;
+    }
+
+    if (imagePath.startsWith('../images/')) {
+      // Convertir en chemin absolu
+      return imagePath.replace('../images/', '/images/');
+    }
+
+    // Si c'est juste un nom de fichier
+    if (!imagePath.startsWith('/') && !imagePath.startsWith('http')) {
+      return `/images/${imagePath}`;
+    }
+
+    return imagePath;
   }
 
   // Extraire le slug du nom de fichier
@@ -175,7 +206,7 @@ class ContentService {
   async saveArticleMetadata(slug, data) {
     try {
       let metadata = {};
-      
+
       try {
         const metadataContent = await fs.readFile(this.metadataFile, 'utf-8');
         metadata = JSON.parse(metadataContent);
@@ -184,10 +215,10 @@ class ContentService {
       }
 
       metadata[slug] = { ...metadata[slug], ...data };
-      
+
       // Créer le dossier metadata s'il n'existe pas
       await fs.mkdir(path.dirname(this.metadataFile), { recursive: true });
-      
+
       await fs.writeFile(this.metadataFile, JSON.stringify(metadata, null, 2));
     } catch (error) {
       console.error('Erreur lors de la sauvegarde des métadonnées:', error);
@@ -214,11 +245,11 @@ class ContentService {
   // Récupérer des articles similaires
   async getSimilarArticles(article, limit = 3) {
     const allArticles = await this.getAllArticles();
-    
+
     return allArticles.articles
       .filter(a => a.slug !== article.slug)
-      .filter(a => 
-        a.category === article.category || 
+      .filter(a =>
+        a.category === article.category ||
         (article.tags && article.tags.some(tag => a.tags && a.tags.includes(tag)))
       )
       .slice(0, limit);
@@ -227,7 +258,7 @@ class ContentService {
   // Récupérer les statistiques des catégories
   async getCategoryStats() {
     const allArticles = await this.getAllArticles({ limit: 1000 });
-    
+
     const categoryCount = {};
     allArticles.articles.forEach(article => {
       categoryCount[article.category] = (categoryCount[article.category] || 0) + 1;
@@ -247,12 +278,12 @@ class ContentService {
   // Rechercher des articles
   async searchArticles(query, page = 1, limit = 10) {
     const allArticles = await this.getAllArticles({ limit: 1000 });
-    
+
     const searchTerms = query.toLowerCase().split(' ');
-    
+
     const matchedArticles = allArticles.articles.filter(article => {
       const searchableText = `${article.title} ${article.excerpt} ${article.tags?.join(' ')}`.toLowerCase();
-      
+
       return searchTerms.every(term => searchableText.includes(term));
     });
 

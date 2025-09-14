@@ -8,7 +8,7 @@ published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "../images/article_dev_web.jpg"
+  url: "/images/article_dev_web.jpg"
   alt: "Illustration de l'article - Astuces pour la création d'un site web personnel"
   caption: "Ordinateur Portable Noir Et Gris - Pexels"
 seo:

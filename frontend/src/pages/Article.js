@@ -186,6 +186,59 @@ function Article() {
         }
     };
 
+    // Fonction : Construction intelligente des URLs d'images
+    const getImageUrl = (imagePath, articleTitle = "Article") => {
+        // Placeholder par défaut avec Via Placeholder
+        // Couleurs : fond gris clair (#e2e8f0), texte gris foncé (#64748b)
+        const defaultPlaceholder = `https://via.placeholder.com/400x250/e2e8f0/64748b?text=${encodeURIComponent(articleTitle)}`;
+        
+        console.log('🖼️ Processing image path:', imagePath);
+        
+        // Si pas d'image fournie
+        if (!imagePath) {
+            console.log('❌ No image path, using placeholder');
+            return defaultPlaceholder;
+        }
+        
+        // Si c'est déjà une URL complète (http/https)
+        if (imagePath.startsWith('http')) {
+            console.log('✅ Using full URL:', imagePath);
+            return imagePath;
+        }
+        
+        // Si c'est un chemin relatif depuis le markdown (../images/...)
+        if (imagePath.startsWith('../images/')) {
+            const filename = imagePath.replace('../images/', '');
+            const apiUrl = `${API_BASE_URL}/images/${filename}`;
+            console.log('🔄 Converted relative path to API URL:', apiUrl);
+            return apiUrl;
+        }
+        
+        // Si c'est un chemin absolu depuis public (/)
+        if (imagePath.startsWith('/')) {
+            console.log('📁 Using absolute path from public:', imagePath);
+            return imagePath;
+        }
+        
+        // Sinon, considérer comme un nom de fichier direct
+        const apiUrl = `${API_BASE_URL}/images/${imagePath}`;
+        console.log('📄 Treating as filename, API URL:', apiUrl);
+        return apiUrl;
+    };
+
+    // Fonction : Gestionnaire d'erreur d'image amélioré
+    const handleImageError = (e, article) => {
+        console.error('❌ Failed to load image for article:', article.title, 'Image path:', article.image);
+        
+        // Créer un placeholder personnalisé avec le titre de l'article
+        const fallbackUrl = `https://via.placeholder.com/400x250/f1f5f9/475569?text=${encodeURIComponent(article.title.substring(0, 20))}`;
+        
+        // Éviter les boucles infinies
+        if (e.target.src !== fallbackUrl) {
+            e.target.src = fallbackUrl;
+        }
+    };
+
     // Chargement initial
     useEffect(() => {
         fetchCategories();
@@ -194,6 +247,18 @@ function Article() {
             setTimeout(() => {
                 setLoading(false);
             }, 1000);
+
+        // TEST : Vérification des URLs générées
+    setTimeout(() => {
+        console.log('=== TEST DES IMAGES ===');
+        articles.forEach(article => {
+            const imageUrl = getImageUrl(article.image, article.title, article.category);
+            console.log(`📖 ${article.title}:`);
+            console.log(`   Original: ${article.image}`);
+            console.log(`   Final URL: ${imageUrl}`);
+            console.log('---');
+        });
+    }, 2000);
     }, [selectedCategory, currentPage]);
 
     useEffect(() => {
@@ -284,11 +349,10 @@ function Article() {
                         <article key={article.slug} className="article-card">
                             <div className="article-image">
                                 <img 
-                                    src={article.image || "/api/placeholder/400/250"} 
-                                    alt={article.title}
-                                    onError={(e) => {
-                                        e.target.src = "/api/placeholder/400/250";
-                                    }}
+                                    src={getImageUrl(article.image, article.title)}
+                                    alt={article.imageAlt || article.title}
+                                    onError={(e) => handleImageError(e, article)}
+                                    onLoad={() => console.log('✅ Image loaded successfully for:', article.title)}
                                 />
                                 <div className="article-category">{article.category}</div>
                             </div>

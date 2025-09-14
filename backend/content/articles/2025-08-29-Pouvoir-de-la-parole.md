@@ -8,7 +8,7 @@ published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "../images/article_parole.jpg"
+  url: "/images/article_parole.jpg"
   alt: "Illustration de l'article - Le pouvoir de la parole"
   caption: "Deux Microphones à Condensateur Gris - Pexels"
 seo:

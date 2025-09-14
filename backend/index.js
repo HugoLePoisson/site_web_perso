@@ -102,6 +102,9 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Servir les images statiquement
+app.use('/api/images', express.static(path.join(__dirname, 'content', 'images')));
+
 // Route pour garder le backend actif
 app.get('/ping', (req, res) => {
   res.json({ status: 'pong', timestamp: new Date() });
