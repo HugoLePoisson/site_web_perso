@@ -25,55 +25,21 @@ Cet article est tiré d'une micro-formation originalement destinée à être pr�
 
 L'idée est d'abord une thématique simple et à laquelle tout le monde puisse se référer, d'une manière légère et pourtant, qui reste intéressante. 
 
-## React Server Components : La révolution côté serveur
+## Biais 1 : Effet de Halo
 
-Les **React Server Components** changent la donne en permettant de rendre des composants directement sur le serveur, réduisant ainsi la taille des bundles JavaScript et améliorant les performances.
+## Biais 2 : Effet Barnum
 
-### Avantages clés :
+## Bais 3 : Le biais d'autorité / de notoriété
 
-- **Performance améliorée** : Moins de JavaScript côté client
-- **SEO optimisé** : Rendu serveur natif
-- **Expérience développeur** : Syntaxe React familière
+## Rhétorique 1 : L'argument d'autorité
 
-```javascript
-// Exemple de Server Component
-async function BlogPost({ id }) {
-  const post = await fetchPost(id);
-  
-  return (
-    
-      {post.title}
-      {post.content}
-    
-  );
-}
-```
+## Rhéotique 2 : Homme de paille
 
-## L'intégration de l'IA générative
+## Rhétorique 3 : L'inversion de la charge de la preuve
 
-L'intelligence artificielle s'immisce dans tous les aspects du développement web, de la génération de code à l'optimisation des performances.
+## Quelques conseils
 
-### Applications concrètes :
-
-1. **Génération de code automatisée**
-2. **Optimisation des requêtes**
-3. **Personnalisation du contenu**
-4. **Tests automatisés intelligents**
-
-## Les nouveaux frameworks à surveiller
-
-Plusieurs frameworks émergent et méritent votre attention :
-
-- **Qwik** : Rendu progressif et lazy loading
-- **SolidJS** : Réactivité fine et performances
-- **Remix** : Full-stack avec focus sur les standards web
-
-## Conclusion
-
-2026 sera une année charnière pour le développement web. Ces technologies ne sont plus des expérimentations mais deviennent des standards de l'industrie.
-
-L'adaptation à ces changements n'est pas optionnelle pour rester compétitif dans le domaine du développement web moderne.
 
 ---
 
-*Cet article fait partie de ma série sur les technologies émergentes. N'hésitez pas à partager vos réflexions en commentaire !*
+*Cet article fait partie de ma série [je n'ai pas encore de nom]. N'hésitez pas à partager vos réflexions en commentaire !*
