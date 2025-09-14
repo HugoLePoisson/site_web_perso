@@ -383,7 +383,7 @@ function Accueil() {
                                 <div className="project-content">
                                     <h3 className="project-title">Rédaction de courts articles</h3>
                                     <p className="project-description">
-                                        Cela fait un moment que je cherche à partager mes pensées (utiles ou non). Je le fais donc sous la forme d'articles plus ou moins long. N'hésitez pas à jeter un oeil à la section en question.
+                                        Cela fait un moment que je cherche à partager mes pensées (utiles ou non). Je le fais donc sous la forme d'articles plus ou moins longs. N'hésitez pas à jeter un oeil à la section en question.
                                     </p>
                                     <div className="project-tags">
                                         <span className="project-tag">Articles</span>
@@ -403,7 +403,7 @@ function Accueil() {
                                 <div className="project-content">
                                     <h3 className="project-title">Création d'un site personnel</h3>
                                     <p className="project-description">
-                                        La création de cet espace est longue, continuelle et super enrichissante. C'est un projet à part entière ahah.    
+                                        La création de cet espace est longue, perpetuelle et super enrichissante. C'est un projet à part entière ahah.    
                                     </p>
                                     <div className="project-tags">
                                         <span className="project-tag">Web Dev</span>
