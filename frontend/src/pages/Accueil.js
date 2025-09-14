@@ -381,14 +381,14 @@ function Accueil() {
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Projet à venir</h3>
+                                    <h3 className="project-title">Rédaction de courts articles</h3>
                                     <p className="project-description">
-                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Lorem ipsum dolor sit amet.
+                                        Cela fait un moment que je cherche à partager mes pensées (utiles ou non). Je le fais donc sous la forme d'articles plus ou moins long. N'hésitez pas à jeter un oeil à la section en question.
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">Tag 1</span>
-                                        <span className="project-tag">Tag 2</span>
-                                        <span className="project-tag">Tag 3</span>
+                                        <span className="project-tag">Articles</span>
+                                        <span className="project-tag">Pensées</span>
+                                        <span className="project-tag">Astuces et outils</span>
                                     </div>
                                 </div>
                             </div>
@@ -401,14 +401,15 @@ function Accueil() {
                                     </div>
                                 </div>
                                 <div className="project-content">
-                                    <h3 className="project-title">Projet à venir</h3>
+                                    <h3 className="project-title">Création d'un site personnel</h3>
                                     <p className="project-description">
-                                        Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
+                                        La création de cet espace est longue, continuelle et super enrichissante. C'est un projet à part entière ahah.    
                                     </p>
                                     <div className="project-tags">
-                                        <span className="project-tag">Tag 1</span>
-                                        <span className="project-tag">Tag 2</span>
-                                        <span className="project-tag">Tag 3</span>
+                                        <span className="project-tag">Web Dev</span>
+                                        <span className="project-tag">React</span>
+                                        <span className="project-tag">Node.js</span>
+                                        <span className="project-tag">DevOps</span>
                                     </div>
                                 </div>
                             </div>
