@@ -16,7 +16,10 @@
     "render:build": "cd backend && npm install",
     "render:start": "cd backend && NODE_ENV=production node index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^15.6.6"
+  },
   "devDependencies": {
     "concurrently": "^7.6.0"
   },

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Article.css';
 import BurgerMenu from '../components/BurgerMenu';
+import { useNavigate } from 'react-router-dom';
 
 function Article() {
+    const navigate = useNavigate();
+
     const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,7 +15,7 @@ function Article() {
     const [currentPage, setCurrentPage] = useState(1);
 
     // Configuration de l'URL de base de l'API pour production
-    const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    const API_BASE_URL = process.env.NODE_ENV === 'production'
         ? 'https://site-web-perso-cjp2.onrender.com/api'  // En production, utiliser le même serveur
         : (process.env.REACT_APP_API_URL || 'http://localhost:5000/api'); // En développement
 
@@ -22,6 +25,11 @@ function Article() {
     console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
     console.log('API_BASE_URL final:', API_BASE_URL);
     console.log('---');
+
+    const handleReadArticle = (slug) => {
+        console.log('Navigation vers l\'article:', slug);
+        navigate(`/article/${slug}`);
+    };
 
     const fetchArticles = async (category = 'all', page = 1) => {
         try {
@@ -48,7 +56,7 @@ function Article() {
                     'Accept': 'application/json'
                 }
             });
-            
+
             if (!response.ok) {
                 throw new Error(`Erreur HTTP: ${response.status} - ${response.statusText}`);
             }
@@ -63,10 +71,10 @@ function Article() {
             const data = await response.json();
 
             console.log('Articles data received:', data);
-            
+
             setArticles(data.articles || []);
             setPagination(data.pagination);
-            
+
         } catch (err) {
             console.error('Erreur lors du chargement des articles:', err);
             setError('Impossible de charger les articles. Veuillez réessayer.');
@@ -90,7 +98,7 @@ function Article() {
         }
     };
     /*
-    // Données d'exemple (à remplacer par des appels API plus tard)
+    // Données tests, j'aime bien les garder car je n'ai pas encore d'API pour appeler mes données
     useEffect(() => {
         // Simulation d'un appel API
         const fetchArticles = async () => {
@@ -178,7 +186,7 @@ function Article() {
 
             const data = await response.json();
             setCategories(data.categories);
-            
+
         } catch (err) {
             console.error('Erreur lors du chargement des catégories:', err);
             // Utiliser des catégories par défaut si l'API échoue
@@ -195,27 +203,27 @@ function Article() {
     // Fonction : Construction intelligente des URLs d'images
     const getImageUrl = (imagePath, articleTitle = "Article") => {
         const defaultPlaceholder = `https://via.placeholder.com/400x250/e2e8f0/64748b?text=${encodeURIComponent(articleTitle)}`;
-        
+
         console.log('🖼️ Processing image path:', imagePath);
         console.log('🔧 Using API_BASE_URL:', API_BASE_URL);
-        
+
         if (!imagePath) {
             console.log('❌ No image path, using placeholder');
             return defaultPlaceholder;
         }
-        
+
         if (imagePath.startsWith('http')) {
             console.log('✅ Using full URL:', imagePath);
             return imagePath;
         }
-        
+
         if (imagePath.startsWith('../images/')) {
             const filename = imagePath.replace('../images/', '');
             const apiUrl = `${API_BASE_URL}/images/${filename}`;
             console.log('🔄 Converted relative path to API URL:', apiUrl);
             return apiUrl;
         }
-        
+
         if (imagePath.startsWith('/images/')) {
             const filename = imagePath.replace('/images/', '');
             const apiUrl = `${API_BASE_URL}/images/${filename}`;
@@ -223,12 +231,12 @@ function Article() {
             console.log('🔍 Final URL will be:', apiUrl);
             return apiUrl;
         }
-        
+
         if (imagePath.startsWith('/')) {
             console.log('📁 Using absolute path from public:', imagePath);
             return imagePath;
         }
-        
+
         const apiUrl = `${API_BASE_URL}/images/${imagePath}`;
         console.log('📄 Treating as filename, API URL:', apiUrl);
         return apiUrl;
@@ -237,10 +245,10 @@ function Article() {
     // Fonction : Gestionnaire d'erreur d'image amélioré
     const handleImageError = (e, article) => {
         console.error('❌ Failed to load image for article:', article.title, 'Image path:', article.image);
-        
+
         // Créer un placeholder personnalisé avec le titre de l'article
         const fallbackUrl = `https://via.placeholder.com/400x250/f1f5f9/475569?text=${encodeURIComponent(article.title.substring(0, 20))}`;
-        
+
         // Éviter les boucles infinies
         if (e.target.src !== fallbackUrl) {
             e.target.src = fallbackUrl;
@@ -252,21 +260,21 @@ function Article() {
         fetchCategories();
         fetchArticles(selectedCategory, currentPage);
         // Simulation d'un délai de chargement
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
 
         // TEST : Vérification des URLs générées
-    setTimeout(() => {
-        console.log('=== TEST DES IMAGES ===');
-        articles.forEach(article => {
-            const imageUrl = getImageUrl(article.image, article.title, article.category);
-            console.log(`📖 ${article.title}:`);
-            console.log(`   Original: ${article.image}`);
-            console.log(`   Final URL: ${imageUrl}`);
-            console.log('---');
-        });
-    }, 2000);
+        setTimeout(() => {
+            console.log('=== TEST DES IMAGES ===');
+            articles.forEach(article => {
+                const imageUrl = getImageUrl(article.image, article.title, article.category);
+                console.log(`📖 ${article.title}:`);
+                console.log(`   Original: ${article.image}`);
+                console.log(`   Final URL: ${imageUrl}`);
+                console.log('---');
+            });
+        }, 2000);
     }, [selectedCategory, currentPage]);
 
     useEffect(() => {
@@ -284,13 +292,6 @@ function Article() {
     // Gestionnaire de changement de page
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
-    };
-
-    // Fonction pour naviguer vers un article
-    const handleReadArticle = (slug) => {
-        // Navigation vers la page de l'article individuel
-        window.location.href = `/article/${slug}`;
-        // Ou avec React Router : navigate(`/article/${slug}`);
     };
 
     // Affichage du loading
@@ -311,7 +312,7 @@ function Article() {
             <div className="article-page">
                 <div className="error-container">
                     <p className="error-message">{error}</p>
-                    <button 
+                    <button
                         className="retry-button"
                         onClick={() => fetchArticles(selectedCategory, currentPage)}
                     >
@@ -329,7 +330,7 @@ function Article() {
                 <header className="article-header">
                     <h1 className="article-page-title">Articles & Réflexions</h1>
                     <p className="article-page-description">
-                        Découvrez mes <span className="highlight-gradient">réflexions</span> sur la technologie, 
+                        Découvrez mes <span className="highlight-gradient">réflexions</span> sur la technologie,
                         des <span className="highlight-underline">tutoriels pratiques</span> et mon parcours d'ingénieur.
                     </p>
                     {error && (
@@ -354,9 +355,14 @@ function Article() {
 
                 <main className="articles-grid">
                     {articles.map(article => (
-                        <article key={article.slug} className="article-card">
+                        <article
+                            key={article.slug}
+                            className="article-card clickable-card"
+                            onClick={() => handleReadArticle(article.slug)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <div className="article-image">
-                                <img 
+                                <img
                                     src={getImageUrl(article.image, article.title)}
                                     alt={article.imageAlt || article.title}
                                     onError={(e) => handleImageError(e, article)}
@@ -364,7 +370,7 @@ function Article() {
                                 />
                                 <div className="article-category">{article.category}</div>
                             </div>
-                            
+
                             <div className="article-content">
                                 <div className="article-meta">
                                     <time className="article-date">
@@ -387,16 +393,19 @@ function Article() {
                                 </div>
 
                                 <div className="article-footer">
-                                    <button 
+                                    <button
                                         className="article-read-more"
-                                        onClick={() => handleReadArticle(article.slug)}
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Empêche la propagation du clic
+                                            handleReadArticle(article.slug);
+                                        }}
                                     >
                                         Lire la suite
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                                            <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
                                         </svg>
                                     </button>
-                                    
+
                                     <div className="article-stats">
                                         <span className="views">{article.views || 0} vues</span>
                                         <span className="likes">{article.likes || 0} ❤️</span>
@@ -422,12 +431,12 @@ function Article() {
                         >
                             Précédent
                         </button>
-                        
+
                         <div className="pagination-info">
                             Page {pagination.currentPage} sur {pagination.totalPages}
                             ({pagination.totalArticles} articles)
                         </div>
-                        
+
                         <button
                             className="pagination-btn"
                             onClick={() => handlePageChange(currentPage + 1)}

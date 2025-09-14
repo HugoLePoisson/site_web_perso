@@ -6,6 +6,7 @@ import Blog from './pages/Blog';
 import Info from './pages/Info';
 import Projets from './pages/Projets';
 import Article from './pages/Article';
+import ArticleDetail from './pages/ArticleDetail';
 import './App.css';
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
             <Route path="/info" element={<Info />} />
             <Route path="/projets" element={<Projets />} />
             <Route path="/article" element={<Article />} />
+            <Route path="/articles" element={<Article />} />
+            <Route path="/article/:slug" element={<ArticleDetail />} />
             {/* Route 404 */}
             <Route path="*" element={<div>Page non trouvée</div>} />
           </Routes>

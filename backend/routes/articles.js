@@ -52,28 +52,38 @@ router.get('/search/:query', async (req, res) => {
 // POST /api/articles/:slug/like - Liker un article (à venir également)
 router.post('/:slug/like', async (req, res) => {
   try {
-    const { slug } = req.params;
-    const likes = await contentService.incrementLikes(slug);
-    res.json({ likes });
-  } catch (error) {
-    console.error('Erreur lors du like:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
+        const { slug } = req.params;
+        const newLikes = await contentService.incrementLikes(slug);
+        
+        res.json({ success: true, likes: newLikes });
+    } catch (error) {
+        console.error('Erreur lors de l\'incrémentation des likes:', error);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
 });
 
 // GET /api/articles/:slug - Récupérer un article spécifique grâce à son slug
 router.get('/:slug', async (req, res) => {
   try {
-    const { slug } = req.params;
-    const article = await contentService.getArticleBySlug(slug);
-    res.json({ article });
-  } catch (error) {
-    if (error.message === 'Article non trouvé' || error.message === 'Article non publié') {
-      return res.status(404).json({ error: error.message });
+        const { slug } = req.params;
+        const article = await contentService.getArticleBySlug(slug);
+        
+        res.json(article);
+    } catch (error) {
+        console.error('Erreur lors de la récupération de l\'article:', error);
+        
+        if (error.message.includes('non trouvé') || error.message.includes('non publié')) {
+            return res.status(404).json({ 
+                error: 'Article non trouvé',
+                message: error.message 
+            });
+        }
+        
+        res.status(500).json({ 
+            error: 'Erreur serveur',
+            message: 'Impossible de récupérer l\'article'
+        });
     }
-    console.error('Erreur lors de la récupération de l\'article:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
 });
 
 
