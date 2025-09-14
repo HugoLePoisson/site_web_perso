@@ -16,6 +16,12 @@ function Article() {
         ? 'https://site-web-perso-cjp2.onrender.com/api'  // En production, utiliser le même serveur
         : (process.env.REACT_APP_API_URL || 'http://localhost:5000/api'); // En développement
 
+    // DEBUG : Affichez les valeurs pour comprendre le problème
+    console.log('🔧 DEBUG INFO:');
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+    console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+    console.log('API_BASE_URL final:', API_BASE_URL);
+    console.log('---');
 
     const fetchArticles = async (category = 'all', page = 1) => {
         try {
@@ -188,25 +194,21 @@ function Article() {
 
     // Fonction : Construction intelligente des URLs d'images
     const getImageUrl = (imagePath, articleTitle = "Article") => {
-        // Placeholder par défaut avec Via Placeholder
-        // Couleurs : fond gris clair (#e2e8f0), texte gris foncé (#64748b)
         const defaultPlaceholder = `https://via.placeholder.com/400x250/e2e8f0/64748b?text=${encodeURIComponent(articleTitle)}`;
         
         console.log('🖼️ Processing image path:', imagePath);
+        console.log('🔧 Using API_BASE_URL:', API_BASE_URL);
         
-        // Si pas d'image fournie
         if (!imagePath) {
             console.log('❌ No image path, using placeholder');
             return defaultPlaceholder;
         }
         
-        // Si c'est déjà une URL complète (http/https)
         if (imagePath.startsWith('http')) {
             console.log('✅ Using full URL:', imagePath);
             return imagePath;
         }
         
-        // Si c'est un chemin relatif depuis le markdown (../images/...)
         if (imagePath.startsWith('../images/')) {
             const filename = imagePath.replace('../images/', '');
             const apiUrl = `${API_BASE_URL}/images/${filename}`;
@@ -214,13 +216,19 @@ function Article() {
             return apiUrl;
         }
         
-        // Si c'est un chemin absolu depuis public (/)
+        if (imagePath.startsWith('/images/')) {
+            const filename = imagePath.replace('/images/', '');
+            const apiUrl = `${API_BASE_URL}/images/${filename}`;
+            console.log('🔄 Converted /images/ path to API URL:', apiUrl);
+            console.log('🔍 Final URL will be:', apiUrl);
+            return apiUrl;
+        }
+        
         if (imagePath.startsWith('/')) {
             console.log('📁 Using absolute path from public:', imagePath);
             return imagePath;
         }
         
-        // Sinon, considérer comme un nom de fichier direct
         const apiUrl = `${API_BASE_URL}/images/${imagePath}`;
         console.log('📄 Treating as filename, API URL:', apiUrl);
         return apiUrl;
