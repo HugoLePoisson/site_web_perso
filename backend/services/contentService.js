@@ -133,10 +133,12 @@ class ContentService {
         published: frontmatter.published !== false,
         featured: frontmatter.featured || false,
         author: frontmatter.author || 'Hugo LAFACE',
+
         // Correction pour l'image - normaliser les chemins
         image: frontmatter.image?.url || frontmatter.image || null,
         imageAlt: frontmatter.image?.alt || frontmatter.title,
         imageCaption: frontmatter.image?.caption || null,
+
         readTime,
         views: metadata.views || 0,
         likes: metadata.likes || 0,
@@ -269,7 +271,8 @@ class ContentService {
       { id: 'tech', name: 'Technologie', count: categoryCount.tech || 0 },
       { id: 'tutorial', name: 'Tutoriels', count: categoryCount.tutorial || 0 },
       { id: 'personnel', name: 'Personnel', count: categoryCount.personnel || 0 },
-      { id: 'reflexion', name: 'Réflexions', count: categoryCount.reflexion || 0 }
+      { id: 'reflexion', name: 'Réflexions', count: categoryCount.reflexion || 0 },
+      { id: 'auto', name: 'Générer par IA', count: categoryCount.auto || 0 }
     ];
 
     return categories.filter(cat => cat.id === 'all' || cat.count > 0);

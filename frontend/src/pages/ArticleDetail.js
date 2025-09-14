@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import BurgerMenu from '../components/BurgerMenu';
@@ -13,6 +14,7 @@ function ArticleDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [similarArticles, setSimilarArticles] = useState([]);
+    const [isLiking, setIsLiking] = useState(false);
 
     // Configuration de l'URL de base de l'API
     const API_BASE_URL = process.env.NODE_ENV === 'production' 
@@ -52,6 +54,41 @@ function ArticleDetail() {
         }
     };
 
+    // Fonction pour liker un article
+    const handleLike = async () => {
+        if (isLiking || !article) return;
+        
+        try {
+            setIsLiking(true);
+            
+            const response = await fetch(`${API_BASE_URL}/articles/${slug}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            
+            // Mettre à jour le nombre de likes dans l'article
+            setArticle(prevArticle => ({
+                ...prevArticle,
+                likes: data.likes
+            }));
+
+        } catch (err) {
+            console.error('Erreur lors du like:', err);
+            // Vous pouvez ajouter une notification d'erreur ici si vous le souhaitez
+        } finally {
+            setIsLiking(false);
+        }
+    };
+
     useEffect(() => {
         if (slug) {
             fetchArticle();
@@ -73,6 +110,10 @@ function ArticleDetail() {
 
     // Composants personnalisés pour le rendu Markdown
     const markdownComponents = {
+        // Wrapper div pour appliquer les classes CSS
+        div({ className, children, ...props }) {
+            return <div className={className} {...props}>{children}</div>;
+        },
         code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
@@ -96,10 +137,47 @@ function ArticleDetail() {
                     src={getImageUrl(src)} 
                     alt={alt} 
                     {...props}
+                    loading="lazy"
                     onError={(e) => {
+                        console.warn('Image failed to load:', src);
                         e.target.style.display = 'none';
                     }}
                 />
+            );
+        },
+        // Améliorer les titres avec des ancres
+        h1({ children, ...props }) {
+            return <h1 {...props}>{children}</h1>;
+        },
+        h2({ children, ...props }) {
+            return <h2 {...props}>{children}</h2>;
+        },
+        h3({ children, ...props }) {
+            return <h3 {...props}>{children}</h3>;
+        },
+        // Améliorer les liens
+        a({ href, children, ...props }) {
+            const isExternal = href && href.startsWith('http');
+            return (
+                <a 
+                    href={href} 
+                    {...props}
+                    {...(isExternal && { 
+                        target: '_blank', 
+                        rel: 'noopener noreferrer' 
+                    })}
+                >
+                    {children}
+                    {isExternal && ' 🔗'}
+                </a>
+            );
+        },
+        // Amélioration des tableaux
+        table({ children, ...props }) {
+            return (
+                <div className="table-wrapper">
+                    <table {...props}>{children}</table>
+                </div>
             );
         }
     };
@@ -217,19 +295,26 @@ function ArticleDetail() {
             {/* Article Content */}
             <main className="article-content">
                 <div className="article-body">
-                    <ReactMarkdown 
-                        components={markdownComponents}
-                        className="markdown-content"
-                    >
-                        {article.content}
-                    </ReactMarkdown>
+                    <div className="markdown-content">
+                        <ReactMarkdown 
+                            components={markdownComponents}
+                            remarkPlugins={[remarkGfm]}
+                        >
+                            {article.content}
+                        </ReactMarkdown>
+                    </div>
                 </div>
 
                 {/* Article Stats */}
                 <div className="article-stats">
                     <span className="views">{article.views || 0} vues</span>
-                    <button className="like-button">
-                        ❤️ {article.likes || 0}
+                    <button 
+                        className={`like-button ${isLiking ? 'liking' : ''}`}
+                        onClick={handleLike}
+                        disabled={isLiking}
+                        title={isLiking ? 'En cours...' : 'J\'aime cet article'}
+                    >
+                        {isLiking ? '💝' : '❤️'} {article.likes || 0}
                     </button>
                 </div>
             </main>

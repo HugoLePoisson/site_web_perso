@@ -1,7 +1,7 @@
 ---
 title: "Les tendances du développement web en 2025"
 excerpt: "Découvrez les technologies qui vont façonner le web cette année : React Server Components, l'essor de l'IA générative et les nouveaux frameworks qui révolutionnent notre façon de développer."
-category: "tech"
+category: "auto"
 tags: ["React", "JavaScript", "IA", "Web Development"]
 date: "2025-01-15"
 published: true
@@ -72,4 +72,4 @@ L'adaptation à ces changements n'est pas optionnelle pour rester compétitif da
 
 ---
 
-*Cet article fait partie de ma série sur les technologies émergentes. N'hésitez pas à partager vos réflexions en commentaire !*
+*Cet article est un article généré automatiquement par IA à des fins de test.*

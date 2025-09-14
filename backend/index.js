@@ -73,6 +73,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
+
 console.log('Test');
 
 // Configuration CORS pour permettre les requêtes depuis Vercel

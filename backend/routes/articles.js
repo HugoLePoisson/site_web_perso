@@ -3,23 +3,23 @@ const express = require('express');
 const router = express.Router();
 const contentService = require('../services/contentService');
 
-// GET /api/articles - Récupérer tous les articles et on peut filtrer avec toutes les options donc cool
-router.get('/articles', async (req, res) => {
-  try {
-    const filters = {
-      category: req.query.category,
-      tag: req.query.tag,
-      featured: req.query.featured,
-      page: req.query.page,
-      limit: req.query.limit
-    };
-
-    const result = await contentService.getAllArticles(filters);
-    res.json(result);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des articles:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
+// Debug: Route pour lister tous les slugs disponibles
+router.get('/articles/debug/slugs', async (req, res) => {
+    try {
+        console.log('🔍 Debug: Récupération de tous les slugs...');
+        const articles = await contentService.getAllArticles({ limit: 100 });
+        const slugs = articles.articles.map(article => ({
+            slug: article.slug,
+            title: article.title,
+            filename: `Probably: ${article.date}-${article.slug}.md`
+        }));
+        
+        console.log('📋 Slugs trouvés:', slugs);
+        res.json({ availableSlugs: slugs });
+    } catch (error) {
+        console.error('❌ Erreur debug slugs:', error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Note : Test de remonter les routes les plus spécifiques en premier pour éviter qu'elles soient interceptées par les autres
@@ -36,7 +36,7 @@ router.get('/articles/categories/stats', async (req, res) => {
 });
 
 // GET /api/articles/search/:query - Recherche d'articles (via des mots-clefs)
-router.get('/search/:query', async (req, res) => {
+router.get('/articles/search/:query', async (req, res) => {
   try {
     const { query } = req.params;
     const { page = 1, limit = 10 } = req.query;
@@ -50,7 +50,7 @@ router.get('/search/:query', async (req, res) => {
 });
 
 // POST /api/articles/:slug/like - Liker un article (à venir également)
-router.post('/:slug/like', async (req, res) => {
+router.post('/articles/:slug/like', async (req, res) => {
   try {
         const { slug } = req.params;
         const newLikes = await contentService.incrementLikes(slug);
@@ -63,7 +63,7 @@ router.post('/:slug/like', async (req, res) => {
 });
 
 // GET /api/articles/:slug - Récupérer un article spécifique grâce à son slug
-router.get('/:slug', async (req, res) => {
+router.get('/articles/:slug', async (req, res) => {
   try {
         const { slug } = req.params;
         const article = await contentService.getArticleBySlug(slug);
@@ -84,6 +84,25 @@ router.get('/:slug', async (req, res) => {
             message: 'Impossible de récupérer l\'article'
         });
     }
+});
+
+// GET /api/articles - Récupérer tous les articles et on peut filtrer avec toutes les options donc cool
+router.get('/articles', async (req, res) => {
+  try {
+    const filters = {
+      category: req.query.category,
+      tag: req.query.tag,
+      featured: req.query.featured,
+      page: req.query.page,
+      limit: req.query.limit
+    };
+
+    const result = await contentService.getAllArticles(filters);
+    res.json(result);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des articles:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
 });
 
 
