@@ -8,7 +8,7 @@ published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "/images/tendances-dev-web-2025.jpg"
+  url: "../images/tendances-dev-web-2025.jpg"
   alt: "Illustration des tendances développement web 2025"
   caption: "Les technologies émergentes de 2025"
 seo:
