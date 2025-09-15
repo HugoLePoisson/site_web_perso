@@ -16,3 +16,19 @@ seo:
   metaDescription: "Découvrez les tendances tech 2026 : React Server Components, IA générative, nouveaux frameworks. Guide complet des technologies web émergentes."
   keywords: ["Développement web", "Outils / Tools", "Node.js", "React", "Déployement"]
 ---
+
+## Le maquettage
+
+### Le contenu - Les sections
+
+### La colorimétrie
+
+### Les polices d'écritures
+
+### Les images 
+
+## Le développement
+
+### Les frameworks 
+
+### L'hébergement
