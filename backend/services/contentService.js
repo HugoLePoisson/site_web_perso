@@ -269,10 +269,10 @@ class ContentService {
     const categories = [
       { id: 'all', name: 'Tous les articles', count: allArticles.pagination.totalArticles },
       { id: 'tech', name: 'Technologie', count: categoryCount.tech || 0 },
-      { id: 'tutorial', name: 'Tutoriels', count: categoryCount.tutorial || 0 },
+      { id: 'tutorial', name: 'Tutoriel', count: categoryCount.tutorial || 0 },
       { id: 'personnel', name: 'Personnel', count: categoryCount.personnel || 0 },
-      { id: 'reflexion', name: 'Réflexions', count: categoryCount.reflexion || 0 },
-      { id: 'auto', name: 'Générer par IA', count: categoryCount.auto || 0 }
+      { id: 'reflexion', name: 'Réflexion', count: categoryCount.reflexion || 0 },
+      { id: 'auto', name: 'Généré par IA', count: categoryCount.auto || 0 }
     ];
 
     return categories.filter(cat => cat.id === 'all' || cat.count > 0);

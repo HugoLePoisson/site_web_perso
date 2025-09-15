@@ -17,6 +17,8 @@ seo:
   keywords: ["Sociologie", "Rhétorique", "Biais cognitifs"]
 ---
 
+**Article en cours d'écriture**
+
 Cet article est tiré d'une micro-formation originalement destinée à être présentée à l'oral. Je vous la partage ici, au format textuel, dans l'espoir que chacun puisse en tirer un quelque chose.
 
 # Le pouvoir de la parole - Techniques rhétoriques et biais cognitifs

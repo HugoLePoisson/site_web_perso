@@ -8,14 +8,16 @@ published: true
 featured: true
 author: "Hugo LAFACE"
 image:
-  url: "/images/tendances-dev-web-2025.jpg"
+  url: "/images/article_tendances_web.jpg"
   alt: "Illustration des tendances développement web 2025"
-  caption: "Les technologies émergentes de 2025"
+  caption: "Ordinateur portable gris - pexels"
 seo:
   metaTitle: "Tendances Développement Web 2025 - Technologies Émergentes"
   metaDescription: "Découvrez les tendances tech 2025 : React Server Components, IA générative, nouveaux frameworks. Guide complet des technologies web émergentes."
   keywords: ["développement web", "tendances 2025", "React", "IA", "JavaScript"]
 ---
+
+**Cet article est un article généré automatiquement, initialement créé pour avoir des données mockées. Je lui donne la note de ?/5**
 
 # Les tendances du développement web en 2025
 

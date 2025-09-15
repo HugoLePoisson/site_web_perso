@@ -39,13 +39,13 @@
 .breadcrumb button {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: #582D1D;
   cursor: pointer;
   transition: color 0.3s;
 }
 
 .breadcrumb button:hover {
-  color: white;
+  color: #CC4E00;
 }
 
 .article-category-badge {

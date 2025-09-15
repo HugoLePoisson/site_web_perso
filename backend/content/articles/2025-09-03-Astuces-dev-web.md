@@ -17,6 +17,8 @@ seo:
   keywords: ["Développement web", "Outils / Tools", "Node.js", "React", "Déployement"]
 ---
 
+**Article en cours d'écriture**
+
 ## Le maquettage
 
 ### Le contenu - Les sections
