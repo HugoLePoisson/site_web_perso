@@ -419,6 +419,8 @@ function Article() {
                 {articles.length === 0 && !loading && (
                     <div className="no-articles">
                         <p>Aucun article trouvé dans cette catégorie.</p>
+                        <p>Les articles et leurs contenurs sont hébergés sur un serveur Render gratuit. C'est une solution simple et efficace qui, pour maintenir sa gratuité, met en pause tout serveur inactif depuis 15 minutes. Si aucun articles ne s'affichent, il est possible que le serveur soit en pause. Au chargement de cette page, une requête a été envoyée au serveur pour le réactivé. Vous pouvez donc recharger cette page afin de visualiser son véritable contenu.</p>
+                        <p>Merci et bonne lecture :\)\)</p>
                     </div>
                 )}
 
