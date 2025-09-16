@@ -331,7 +331,7 @@ function Article() {
                     <h1 className="article-page-title">Articles & Réflexions</h1>
                     <p className="article-page-description">
                         Découvrez mes <span className="highlight-gradient">réflexions</span> sur la technologie,
-                        des <span className="highlight-underline">tutoriels pratiques</span> et mon parcours d'ingénieur.
+                        des <span className="highlight-underline">tutoriels pratiques</span> et des réflexions personnelles.
                     </p>
                     {error && (
                         <div className="api-status-warning">

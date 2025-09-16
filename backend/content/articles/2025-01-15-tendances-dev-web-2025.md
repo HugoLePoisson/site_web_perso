@@ -6,7 +6,7 @@ tags: ["React", "JavaScript", "IA", "Web Development"]
 date: "2025-01-15"
 published: true
 featured: true
-author: "Hugo LAFACE"
+author: "LLM"
 image:
   url: "/images/article_tendances_web.jpg"
   alt: "Illustration des tendances développement web 2025"
