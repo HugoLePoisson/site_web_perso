@@ -76,7 +76,8 @@
   --spacing-4xl: 5rem;     
   --spacing-5xl: 6rem;     
   --spacing-6xl: 7rem;     
-  --spacing-7xl: 8rem;     
+  --spacing-7xl: 8rem; 
+  --spacing-romain : 10rem;     
 
   /* === RAYONS DE BORDURE === */
   --radius-xs: 0.125rem;   /* 2px */
