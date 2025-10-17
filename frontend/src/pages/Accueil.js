@@ -532,7 +532,7 @@ function Accueil() {
             <footer className="footer-section">
                 <div className="footer-container">
                     <p className="footer-text">
-                        Ce site est développé par Hugo LAFACE •
+                        Ce site est développé par Hugo LAFACE • React & Node / Hébergé sur Vercel (front) & Render (back) • 
                         <a
                             href="https://github.com/HugoLePoisson/site_web_perso"
                             className="footer-link"
