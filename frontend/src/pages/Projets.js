@@ -21,36 +21,14 @@ function Projets() {
     },
     {
       id: 2,
-      title: "Système de Gestion d'Articles",
-      description: "API REST pour la gestion et l'affichage d'articles techniques",
-      fullDescription: "Backend complet permettant de gérer des articles en markdown. L'API offre des endpoints pour la récupération des articles, le filtrage par catégorie, la pagination, et les statistiques. Elle intègre également un système de gestion d'images optimisé et un cache pour améliorer les performances.",
-      technologies: ["Express.js", "REST API", "Markdown", "CORS"],
-      status: "Terminé",
-      link: "https://github.com/HugoLePoisson",
+      title: "Fusionneur de PDF",
+      description: "Fusionneur de PDF en ligne, Open Source. Pour éviter à tous mes amis d'utiliser ILovePDF",
+      fullDescription: "Afin d'éviter d'utiliser des sites inconnus pour fusionner vos PDFs et de d'exposer des documents potentiellement sensibles, voici un fusionner de PDF en ligne, Open Source et gratuit. Le code est disponible sur GitHub et le site est hébergé sur Vercel.",
+      technologies: ["Open Source", "PDF", "Gentillesse"],
+      status: "Fonctionnel",
+      link: "https://pdf-merger-web.vercel.app/",
       externalLink: true,
       date: "2025"
-    },
-    {
-      id: 3,
-      title: "Projet de Recherche - INSA Lyon",
-      description: "Travaux de recherche en technologies de l'information",
-      fullDescription: "Durant ma formation d'ingénieur à l'INSA Lyon, j'ai participé à plusieurs projets de recherche dans le domaine des technologies de l'information. Ces projets m'ont permis d'approfondir mes connaissances en développement logiciel et en méthodologies de recherche.",
-      technologies: ["Recherche", "Développement", "Innovation"],
-      status: "Terminé",
-      link: "#",
-      externalLink: false,
-      date: "2024"
-    },
-    {
-      id: 4,
-      title: "Stage à l'ÉTS Montréal",
-      description: "Maîtrise en technologies de l'information",
-      fullDescription: "Expérience enrichissante à l'École de Technologie Supérieure de Montréal où j'ai travaillé sur des projets innovants en technologies de l'information. Cette expérience m'a permis de développer mes compétences techniques tout en découvrant un nouvel environnement académique et culturel.",
-      technologies: ["TI", "Développement", "Recherche Appliquée"],
-      status: "Terminé",
-      link: "#",
-      externalLink: false,
-      date: "2024"
     }
   ];
 
@@ -116,6 +94,7 @@ function Projets() {
   return (
     <div className="projets-page">
       <BurgerMenu />
+
       <div className="projets-container">
         <header >
           <h1 className="projets-page-title">Mes Projets</h1>
@@ -125,6 +104,22 @@ function Projets() {
             <span className="highlight-gradient"> projets de recherche</span>.
           </p>
         </header>
+
+        <div className='accueil_raccourcis-container'>
+          <h1 className='accueil_raccourcis-title'>
+            Raccourcis outils :
+          </h1>
+          <div className="accueil_raccourcis-buttons">
+            <a
+              href="https://pdf-merger-web.vercel.app/"
+              className="btn btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Fusionneur de PDF
+            </a>
+          </div>
+        </div>
 
         <div className="projets-list">
           {projects.map((project, index) => (

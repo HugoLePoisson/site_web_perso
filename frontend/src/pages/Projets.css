@@ -36,6 +36,37 @@
     line-height: 1.6;
 }
 
+/* === SOUS-SECTION RACCOURCIS === */
+.accueil_raccourcis-title {
+    /* Police titre Geist */
+    font-family: var(--font-title);
+    font-weight: var(--font-bold);
+    font-size: var(--text-3xl);
+
+    /* Couleur texte haute contraste */
+    color: var(--text-high-contrast);
+
+    /* Espacements */
+    margin-top: var(--spacing-xl);
+    margin: 0 0 var(--spacing-xl) 0;
+}
+
+.accueil_raccourcis-container {
+    /* Conteneur aligné à gauche */
+    max-width: var(--max-width-2xl);
+    text-align: left;
+    width: 100%;
+    margin-top: var(--spacing-4xl);
+}
+
+/* === CONTENEUR BOUTONS RACCOURCI === */
+.accueil_raccourcis-buttons {
+    font-family: var(--font-bold);
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
 
 
 /* ===== LISTE DES PROJETS ===== */
@@ -129,6 +160,12 @@
 }
 
 .projet-status.status-terminé {
+    background-color: var(--ui-background-active);
+    color: var(--text-high-contrast);
+    border: 1px solid var(--border-ui);
+}
+
+.projet-status.status-fonctionnel {
     background-color: var(--ui-background-active);
     color: var(--text-high-contrast);
     border: 1px solid var(--border-ui);

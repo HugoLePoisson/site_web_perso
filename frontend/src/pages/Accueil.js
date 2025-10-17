@@ -327,7 +327,15 @@ function Accueil() {
                         >
                             Contact
                         </button>
+
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => window.location.href = '/projets'}
+                        >
+                            Outils
+                        </button>
                     </div>
+                    
                 </div>
             </section>
 
