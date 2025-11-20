@@ -55,6 +55,22 @@ Elle joue sur les raccourcis que fait notre cervea ceux uqui nous ont permis de 
 
 Pas de quoi s'affoler jusque là. Mais c'est l'exploitation, consciente et à l'insu de l'autre, de ces biais cognitifs qui constitue les techniques rhétoriques que je vais vous présenter ensuite. 
 
+### Pourquoi ? 
+
+- Premièrement, pour apprendre à manipuler. Alors non pas dans le but de manipuler, bien que vous soyez libre de faire ce que vous avez envie, mais plutôt dans l’idée de reconnaître les manipulateurs, ou plutôt les petites tentatives de manipulation, et de s’en défaire. 
+
+- Pour développer son esprit critique. Avoir un nouveau regard sur le monde et adopter une position plus neutre à l’annonce d’une nouvelle. Lorsque l’on regarde le journal télévisé, ou que l’on lit le tweet d’un média. 
+
+- Et enfin, pour soi-même. Car c’est toujours bon à prendre. Améliorer sa diction, sa communication, la manière et l’efficacité avec lesquelles on véhicule nos idées. C’est toujours agréable de pouvoir se justifier et d’apporter du crédit à nos propos.
+
+Je vous propose donc de voir ensemble, dans un premier temps 3 biais cognitifs de base et 3 techniques rhétoriques. 
+
+Ce sont des concepts très complets que je vais essayer de présenter rapidement.
+Je ne suis pas un spécialiste, mais c’est un sujet qui m’intéresse. 
+
+La rhétorique est souvent utilisée dans les débats, c’est donc là où on trouve le plus d’exemples. J’ai donc passé soigneusement passé mes derniers week-ends à explorer le théâtre de la joute verbale, les arènes du combat à coup de plumes : la scène politique québécoise. 
+À noter qu’elle est fournie et plus respectueuse que la scène française. Je suis donc, parfois, à défaut, aller piocher chez les français.
+
 ## Biais 1 : Effet de Halo
 
 ## Biais 2 : Effet Barnum
